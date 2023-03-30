@@ -16,14 +16,14 @@ function ArrowIcon(props) {
 
 const variantStyles = {
   primary:
-    'rounded-full bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-pink-400/10 dark:text-pink-400 dark:ring-1 dark:ring-inset dark:ring-pink-400/20 dark:hover:bg-pink-400/10 dark:hover:text-pink-300 dark:hover:ring-pink-300',
+    'rounded-full bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-fuchsia-400/10 dark:text-fuchsia-400 dark:ring-1 dark:ring-inset dark:ring-fuchsia-400/20 dark:hover:bg-fuchsia-400/10 dark:hover:text-fuchsia-300 dark:hover:ring-fuchsia-300',
   secondary:
     'rounded-full bg-zinc-100 py-1 px-3 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800/40 dark:text-zinc-400 dark:ring-1 dark:ring-inset dark:ring-zinc-800 dark:hover:bg-zinc-800 dark:hover:text-zinc-300',
   filled:
-    'rounded-full bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-pink-500 dark:text-white dark:hover:bg-pink-400',
+    'rounded-full bg-zinc-900 py-1 px-3 text-white hover:bg-zinc-700 dark:bg-fuchsia-500 dark:text-white dark:hover:bg-fuchsia-400',
   outline:
     'rounded-full py-1 px-3 text-zinc-700 ring-1 ring-inset ring-zinc-900/10 hover:bg-zinc-900/2.5 hover:text-zinc-900 dark:text-zinc-400 dark:ring-white/10 dark:hover:bg-white/5 dark:hover:text-white',
-  text: 'text-pink-500 hover:text-pink-600 dark:text-pink-400 dark:hover:text-pink-500',
+  text: 'text-fuchsia-500 hover:text-fuchsia-600 dark:text-fuchsia-400 dark:hover:text-fuchsia-500',
 }
 
 export function Button({

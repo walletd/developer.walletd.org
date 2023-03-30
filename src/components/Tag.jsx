@@ -42,7 +42,7 @@ const valueColorMap = {
 export function Tag({
   children,
   variant = 'medium',
-  color = valueColorMap[children.toLowerCase()] ?? 'pink',
+  color = valueColorMap[children.toLowerCase()] ?? 'fuchsia',
 }) {
   return (
     <span

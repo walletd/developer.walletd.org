@@ -3,6 +3,9 @@ module.exports = {
   content: ['./{src,mdx}/**/*.{js,mjs,jsx,mdx}'],
   darkMode: 'class',
   theme: {
+    // colors: {
+    //   'pink': '#BC1BC0',
+    // },
     fontSize: {
       '2xs': ['0.75rem', { lineHeight: '1.25rem' }],
       xs: ['0.8125rem', { lineHeight: '1.5rem' }],

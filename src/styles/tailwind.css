@@ -8,6 +8,7 @@
   --shiki-token-function: theme('colors.violet.300');
   --shiki-token-string-expression: theme('colors.emerald.300');
   --shiki-token-punctuation: theme('colors.zinc.200');
+  --shiki-token-main-color: theme('colors.fuchsia.600');
 }
 
 @tailwind base;

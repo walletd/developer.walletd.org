@@ -56,8 +56,8 @@ const FeedbackThanks = forwardRef(function FeedbackThanks(_props, ref) {
       ref={ref}
       className="absolute inset-0 flex justify-center md:justify-start"
     >
-      <div className="flex items-center gap-3 rounded-full bg-pink-50/50 py-1 pr-3 pl-1.5 text-sm text-pink-900 ring-1 ring-inset ring-pink-500/20 dark:bg-pink-500/5 dark:text-pink-200 dark:ring-pink-500/30">
-        <CheckIcon className="h-5 w-5 flex-none fill-pink-500 stroke-white dark:fill-pink-200/20 dark:stroke-pink-200" />
+      <div className="flex items-center gap-3 rounded-full bg-fuchsia-50/50 py-1 pr-3 pl-1.5 text-sm text-fuchsia-900 ring-1 ring-inset ring-fuchsia-500/20 dark:bg-fuchsia-500/5 dark:text-fuchsia-200 dark:ring-fuchsia-500/30">
+        <CheckIcon className="h-5 w-5 flex-none fill-fuchsia-500 stroke-white dark:fill-fuchsia-200/20 dark:stroke-fuchsia-200" />
         Thanks for your feedback!
       </div>
     </div>
