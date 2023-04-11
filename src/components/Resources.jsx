@@ -11,7 +11,7 @@ import { UsersIcon } from '@/components/icons/UsersIcon'
 const resources = [
   {
     href: '/contacts',
-    name: 'Contacts',
+    name: 'Mnemonics',
     description:
       'Learn about the contact model and how to create, retrieve, update, delete, and list contacts.',
     icon: UserIcon,
@@ -25,7 +25,7 @@ const resources = [
   },
   {
     href: '/conversations',
-    name: 'Conversations',
+    name: 'Key Management',
     description:
       'Learn about the conversation model and how to create, retrieve, update, delete, and list conversations.',
     icon: ChatBubbleIcon,
@@ -39,7 +39,7 @@ const resources = [
   },
   {
     href: '/messages',
-    name: 'Messages',
+    name: 'Blockchain Connectors',
     description:
       'Learn about the message model and how to create, retrieve, update, delete, and list messages.',
     icon: EnvelopeIcon,
@@ -53,7 +53,7 @@ const resources = [
   },
   {
     href: '/groups',
-    name: 'Groups',
+    name: 'Coins',
     description:
       'Learn about the group model and how to create, retrieve, update, delete, and list groups.',
     icon: UsersIcon,
