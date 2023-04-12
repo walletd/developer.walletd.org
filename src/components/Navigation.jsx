@@ -194,13 +194,18 @@ export const navigation = [
     ],
   },
   {
-    title: 'Resources',
+    title: 'API Reference',
     links: [
-      { title: 'Mnemonics', href: '/contacts' },
+      { title: 'Mnemonics API', href: '/mnemonic' },
+      { title: 'Connecting to a blockchain', href: '/messages' },
+      { title: 'Working with supported cryptocurrencies', href: '/groups' },
       { title: 'Key Management', href: '/conversations' },
-      { title: 'Blockchain Connectors', href: '/messages' },
-      { title: 'Coins', href: '/groups' },
     ],
+    title: 'Releases',
+    links: [
+      { title: 'Release Cycle', href: '/releases' },
+      { title: 'Change Logs', href: '/' }
+    ]
   },
 ]
 
