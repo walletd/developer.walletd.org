@@ -185,27 +185,26 @@ function NavigationGroup({ group, className }) {
 
 export const navigation = [
   {
-    title: 'Guides',
+    title: '',
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
-      { title: 'Authentication', href: '/authentication' },
       { title: 'Errors', href: '/errors' },
     ],
   },
   {
     title: 'API Reference',
     links: [
-      { title: 'Mnemonics API', href: '/mnemonic' },
-      { title: 'Connecting to a blockchain', href: '/messages' },
-      { title: 'Working with supported cryptocurrencies', href: '/groups' },
-      { title: 'Key Management', href: '/conversations' },
+      { title: 'Mnemonics API', href: '/mnemonics' },
+      { title: 'Connecting to a blockchain', href: '/blockchains' },
+      { title: 'Working with supported cryptocurrencies', href: '/cryptocurrencies' },
+      { title: 'Key Management', href: '/key-management' },
     ],
-    title: 'Releases',
-    links: [
-      { title: 'Release Cycle', href: '/releases' },
-      { title: 'Change Logs', href: '/' }
-    ]
+    // title: 'Releases',
+    // links: [
+    //   { title: 'Release Cycle', href: '/releases' },
+    //   { title: 'Change Logs', href: '/' }
+    // ]
   },
 ]
 
