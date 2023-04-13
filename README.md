@@ -1,6 +1,6 @@
-This project is under heavy development. Expect bugs & breaking changes prior to v1.0.0's release.
+# WalletD Developer Documentation Website
 
-What is WalletD?
+This repository contains the source code for the developer guide resource located at [WalletD ]
 WalletD is a collection of Rust libraries (published as crates) that make interacting with various different cryptocurrency chains easier than existing Rust-based solutions.
 
 WalletD will be compiled into a number of different bindings to allow for non-Rust developers to consume the libraries in their native languages.
