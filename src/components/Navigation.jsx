@@ -188,8 +188,7 @@ export const navigation = [
     title: '',
     links: [
       { title: 'Introduction', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' },
-      { title: 'Errors', href: '/errors' },
+      { title: 'Quickstart', href: '/quickstart' }
     ],
   },
   {
@@ -200,6 +199,17 @@ export const navigation = [
       { title: 'Working with supported cryptocurrencies', href: '/cryptocurrencies' },
       { title: 'Key Management', href: '/key-management' },
     ],
+  },
+  {
+    title: 'Issues', 
+    links: [
+      { title: 'Reporting issues', href: '/' },
+    ],
+    title: 'Contributing',
+    links: [
+      { title: 'How to contribute', href: '/' },
+    ]
+
     // title: 'Releases',
     // links: [
     //   { title: 'Release Cycle', href: '/releases' },
