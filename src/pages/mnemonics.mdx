@@ -2,3 +2,34 @@ export const description =
   'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
 
 For the most up-to-date examples for the mnemonic, please refer to the following folder of [examples on GitHub](non)
+
+List of all public API methods for Mnemonics functionality
+
+    ### Mnemonic
+
+    fn new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<&str>) -> Mnemonic {
+    fn create_seed(
+    from_phrase()
+
+    | Parameters | Description |
+    | Language | The desired language a user wants to use |
+    fn detect_language(
+    fn to_seed(&self) -> Seed {
+    fn phrase(&self) -> String {
+    fn language(&self) -> Language {
+    fn mnemonic_type(&self) -> MnemonicType {
+    fn builder() -> Self::MnemonicStyleBuilder {
+    
+    ### Mnemonic Builder
+    
+    fn new() -> Self {
+    fn set_seed(&mut self, seed: &Seed) -> Self {
+    fn set_phrase(&mut self, mnemonic_phrase: &str) -> Self {
+    fn set_language(&mut self, language: Self::LanguageHandler) -> Self {
+    fn set_passphrase(&mut self, passphrase: &str) -> Self {
+    fn set_mnemonic_type(&mut self, mnemonic_type: Self::MnemonicTypeSpec) -> Self {
+    fn detect_language(&mut self) -> Self {
+    fn restore(&self) -> Result<Self::MnemonicStyle, Self::ErrorType> {
+    fn generate(&self) -> Result<Self::MnemonicStyle, Self::ErrorType> {
+    fn bytes_to_words(entropy_bytes: &Vec<u8>, wordlist_info: &WordList) -> Result<String, Error> {
+    fn words_to_bytes(language: Language, mnemonic_phrase: &str) -> Result<Vec<u8>, Error> {

@@ -203,8 +203,10 @@ export const navigation = [
   {
     title: 'Issues', 
     links: [
-      { title: 'Reporting issues', href: '/' },
+      { title: 'Reporting issues', href: '/issues' },
     ],
+  },
+  {
     title: 'Contributing',
     links: [
       { title: 'How to contribute', href: '/' },
