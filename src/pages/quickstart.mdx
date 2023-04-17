@@ -69,7 +69,7 @@ async fn main() -> web3::Result<()> {
 }
 ```
 
-### How to get block data
+### How to get a cryptocurrency's block data
 
 ```rust
 use walletd_ethereum::EthClient;
@@ -82,7 +82,7 @@ async fn main() -> web3::Result<()> {
 
 
     let latest_block = EthClient::block_data_from_U64(&eth_client, block_number); // Gets the block data for the latest block
-    let latest_block_data = EthClient::latest_block(&eth_client); // 
+    let latest_block_data = EthClient::latest_block(&eth_client); // latest_block_data contains data for an Ethereum block
     Ok(())
 }
 ```
