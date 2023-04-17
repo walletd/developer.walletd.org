@@ -195,8 +195,8 @@ export const navigation = [
     title: 'API Reference',
     links: [
       { title: 'Mnemonics API', href: '/mnemonics' },
-      { title: 'Connecting to a blockchain', href: '/blockchains' },
-      { title: 'Working with supported cryptocurrencies', href: '/cryptocurrencies' },
+      { title: 'Blockchain Connector API', href: '/blockchains' },
+      { title: 'Wallet API', href: '/cryptocurrencies' },
       { title: 'Key Management', href: '/key-management' },
     ],
   },
