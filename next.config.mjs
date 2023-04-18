@@ -19,6 +19,8 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  assetPrefix: '/',
+  basePath: '/developer.walletd.org',
 }
 
 export default withMDX(nextConfig)
