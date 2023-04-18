@@ -196,7 +196,12 @@ export const navigation = [
     links: [
       { title: 'Mnemonics API', href: '/mnemonics' },
       { title: 'Blockchain Connector API', href: '/blockchains' },
-      { title: 'Wallet API', href: '/cryptocurrencies' },
+      { title: 'Wallet / Account API', 
+        href: '/wallets',
+        links: [
+          { title: 'Quickstart', href: '/quickstart' }
+        ] 
+      },
       { title: 'Key Management', href: '/key-management' },
     ],
   },

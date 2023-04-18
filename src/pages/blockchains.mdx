@@ -2,3 +2,48 @@ export const description =
   'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
 
 For the most up-to-date examples for the key management functionality, please refer to the following folder of [examples on GitHub](non)
+
+
+
+# Bitcoin
+
+WalletD currently supports using Blockstream to retrieve blockchain information. 
+
+Expanding ways to retrieve this data through other means are part of the WalletD roadmap.
+
+For working with Bitcoin, we recommend the following imports:
+```rust 
+use walletd_bitcoin::{BitcoinWallet, BitcoinPrivateKey, Network};
+use walletd_bitcoin::blockstream::{BTransaction, Input, Output, Status};
+```
+
+
+
+# Ethereum
+
+## EthClient
+
+## new()
+
+Creates a new instance of a blockchain connector
+
+```rust
+  use walletd_ethereum::EthClient;
+  use web3::types::U64;
+  use walletd_coin_model::BlockchainConnector;
+```
+```rust
+  let endpoint: &str = "https://your-eth-endpoint.com";
+  let eth_client = EthClient::new(endpoint).unwrap();  
+
+  let _latest_block_data = EthClient::latest_block(&eth_client);
+  Ok(())
+
+
+```
+
+## block_data_from_U64(&eth_client, block_number);
+```rust
+let block_number: U64 = U64::from(8455626);
+let block_data = EthClient::block_data_from_U64(&eth_client, block_number);
+```
