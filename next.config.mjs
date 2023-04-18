@@ -12,6 +12,8 @@ const withMDX = nextMDX({
   },
 })
 
+const isProd = process.env.NODE_ENV === 'production'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -19,8 +21,10 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  assetPrefix: '/',
-  basePath: '/developer.walletd.org',
+  assetPrefix: isProd ? '/developer.walletd.org/' : '',
+  images: {
+    unoptimized: true,
+  },
 }
 
 export default withMDX(nextConfig)
