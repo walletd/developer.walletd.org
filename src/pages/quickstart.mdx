@@ -46,12 +46,22 @@ For the most up-to-date examples for the cryptocurrency functionality, please re
 
 ## Getting started with Bitcoin
 
-
+The WalletD team is hard at work polishing up our prepared alpha, and will be adding quickstart documentation for Bitcoin very soon.
 
 ## Getting started with Ethereum
 
-### Initialise an Ethereum Client
 
+
+### How to query an account balance
+```rust
+use web3::types::H160;
+use walletd_coin_model::BlockchainConnector;
+```
+```rust
+    let eth_client = EthClient::new(&INFURA_GOERLI_ENDPOINT.to_string()).unwrap();
+    let address: H160 = "00a329c0648769a73afac7f9381e08fb43dbea72".parse().unwrap();
+    let _balance = eth_client.balance(address).await.unwrap();
+```    
 ```rust
 use walletd_ethereum::EthClient;
 
