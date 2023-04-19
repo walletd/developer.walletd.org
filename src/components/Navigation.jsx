@@ -185,22 +185,43 @@ function NavigationGroup({ group, className }) {
 
 export const navigation = [
   {
-    title: 'Guides',
+    title: 'Introduction',
     links: [
-      { title: 'Introduction', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' },
-      { title: 'Authentication', href: '/authentication' },
-      { title: 'Errors', href: '/errors' },
+      { title: 'Overview', href: '/' },
+      { title: 'Quickstart', href: '/quickstart' }
     ],
   },
   {
-    title: 'Resources',
+    title: 'API Reference',
     links: [
-      { title: 'Mnemonics', href: '/contacts' },
-      { title: 'Key Management', href: '/conversations' },
-      { title: 'Blockchain Connectors', href: '/messages' },
-      { title: 'Coins', href: '/groups' },
+      { title: 'Mnemonics API', href: '/mnemonics' },
+      { title: 'Blockchain Connector API', href: '/blockchains' },
+      { title: 'Wallet / Account API', 
+        href: '/wallets',
+        links: [
+          { title: 'Quickstart', href: '/quickstart' }
+        ] 
+      },
+      { title: 'Key Management', href: '/key-management' },
     ],
+  },
+  {
+    title: 'Issues', 
+    links: [
+      { title: 'Reporting issues', href: '/issues' },
+    ],
+  },
+  {
+    title: 'Contributing',
+    links: [
+      { title: 'How to contribute', href: '/' },
+    ]
+
+    // title: 'Releases',
+    // links: [
+    //   { title: 'Release Cycle', href: '/releases' },
+    //   { title: 'Change Logs', href: '/' }
+    // ]
   },
 ]
 

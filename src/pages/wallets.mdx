@@ -1,0 +1,34 @@
+export const description =
+  'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
+
+For the most up-to-date examples for WalletD's functionality, we recommend refering to the following folder of [examples on GitHub](non)
+
+# WalletD Wallet API Reference
+
+## Bitcoin
+
+## Ethereum
+
+### EthereumWallet
+
+#### How to initialise an Ethereum wallet
+EthClient is mentioned here as EthereumWallet requires an instance of EthClient to be initialised. For more info, refer to the [BlockChain Connector API](Test)
+
+```rust
+let mnemonic_phrase: &str =
+  "outer ride ... dry point";
+let passphrase: Option<&str> = Some("mypassphrase");
+let restored_mnemonic =
+    Mnemonic::from_phrase(Language::English, mnemonic_phrase, passphrase).unwrap();
+let seed = restored_mnemonic.to_seed();
+
+println!("seed as bytes: {:?}", seed.as_bytes());
+
+let wallet = match EthereumWallet::builder().with_mnemonic_seed(seed).with_network_type(HDNetworkType::TestNet).build() 
+{
+    Ok(wallet) => Ok(wallet),
+    Err(e) => Err(e),
+};
+```
+
+### EthereumAmount

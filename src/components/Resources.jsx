@@ -10,10 +10,10 @@ import { UsersIcon } from '@/components/icons/UsersIcon'
 
 const resources = [
   {
-    href: '/contacts',
-    name: 'Mnemonics',
+    href: '/cryptocurrencies',
+    name: 'Connecting to a blockchain',
     description:
-      'Learn about the contact model and how to create, retrieve, update, delete, and list contacts.',
+      'Learn about how to use WalletD to interface with supported blockchain networks.',
     icon: UserIcon,
     pattern: {
       y: 16,
