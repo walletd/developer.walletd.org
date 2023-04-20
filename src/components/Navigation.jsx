@@ -206,6 +206,12 @@ export const navigation = [
     ],
   },
   {
+    title: 'Advanced', 
+    links: [
+      { title: 'Building from source', href: '/build' },
+    ],
+  },
+  {
     title: 'Issues', 
     links: [
       { title: 'Reporting issues', href: '/issues' },
