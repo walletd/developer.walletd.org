@@ -220,7 +220,8 @@ export const navigation = [
   {
     title: 'Contributing',
     links: [
-      { title: 'How to contribute', href: '/' },
+      { title: 'How to contribute', href: '/contributing' },
+      { title: 'Code of Conduct', href: '/code-of-conduct' },
     ]
 
     // title: 'Releases',
