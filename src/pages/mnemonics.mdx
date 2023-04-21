@@ -1,7 +1,7 @@
 export const description =
   'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
 
-# Mnenmonics
+# Mnemonics
 
 Generally, we recommend that users use an instance of the Mnemonic struct for working with Mnemonics.
 
@@ -55,7 +55,7 @@ List of all public API methods for Mnemonics functionality
 
 WalletD suggests using the builder interface for instantiating new instances 
 
-## builder()
+## builder
 
 A builder class that allows you to easily specify your desired mnemonic settings, and then initialise an instance of.
 
@@ -65,18 +65,36 @@ TO FOLLOW
 ```
 
 
-## new()
+## new
 
 How to instantiate an instance of the mnemonic struct
 
 Example
 ```rust
-let mnemonic = Mnemonic::new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<& str>)
+let mnemonic = Mnemonic::new(Language::English, mnemonic_type: MnemonicType, Option<&str>)
 
-new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<& str>)
+new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<&str>)
 ```
 
-## create_seed()
+## create_seed
+
+Creates a seed
+
+Example
+```
+TO FOLLOW
+```
+
+## to_seed
+
+Converts a 
+
+Example
+```
+TO FOLLOW
+```
+
+## new
 
 What it does
 
@@ -85,7 +103,8 @@ Example
 TO FOLLOW
 ```
 
-## to_seed()
+
+## language
 
 What it does
 
@@ -94,37 +113,7 @@ Example
 TO FOLLOW
 ```
 
-## new()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
-
-## language()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
-## detect_language()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
-```
-
-## detect_language()
+## detect_language
 
 What it does
 
@@ -135,7 +124,7 @@ TO FOLLOW
 
 ```
 
-## detect_language()
+## phrase
 
 What it does
 
@@ -146,7 +135,16 @@ TO FOLLOW
 
 ```
 
-## to_seed()
+## language
+
+What it does
+
+Example
+```
+TO FOLLOW
+```
+
+## detect_language
 
 What it does
 
@@ -157,7 +155,7 @@ TO FOLLOW
 
 ```
 
-## phrase()
+## to_seed
 
 What it does
 
@@ -168,16 +166,7 @@ TO FOLLOW
 
 ```
 
-## language()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
-## detect_language()
+## phrase
 
 What it does
 
@@ -188,7 +177,7 @@ TO FOLLOW
 
 ```
 
-## to_seed()
+## language
 
 What it does
 
@@ -197,29 +186,7 @@ Example
 TO FOLLOW
 ```
 
-```
-
-## phrase()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
-```
-
-## language()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
-## mnemonic_type()
+## mnemonic_type
 
 What it does
 
@@ -229,9 +196,9 @@ TO FOLLOW
 ```
 
 
-```
+```rust
 
-    fn new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<& str>) -> Mnemonic {
+    fn new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<str>) -> Mnemonic {
     fn create_seed
 
     | Parameters | Description |
