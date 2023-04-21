@@ -71,14 +71,14 @@ How to instantiate an instance of the mnemonic struct
 
 Example
 ```rust
-let mnemonic = Mnemonic::new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<& str>)
+let mnemonic = Mnemonic::new(Language::English, mnemonic_type: MnemonicType, Option<&str>)
 
-new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<& str>)
+new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<&str>)
 ```
 
 ## create_seed()
 
-What it does
+Creates a seed
 
 Example
 ```
@@ -87,7 +87,7 @@ TO FOLLOW
 
 ## to_seed()
 
-What it does
+Converts a 
 
 Example
 ```
@@ -111,17 +111,6 @@ What it does
 Example
 ```
 TO FOLLOW
-```
-
-## detect_language()
-
-What it does
-
-Example
-```
-TO FOLLOW
-```
-
 ```
 
 ## detect_language()
@@ -229,14 +218,14 @@ TO FOLLOW
 ```
 
 
-```
+```rust
 
-    fn new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<& str>) -> Mnemonic {
+    fn new(language: Language, mnemonic_type: MnemonicType, passphrase: Option<str>) -> Mnemonic {
     fn create_seed
 
     | Parameters | Description |
     | Language | The desired language a user wants to use |
-    fn to_seed(ampserand - self) -> Seed {
+    fn to_seed(& - self) -> Seed {
     fn phrase(ampserand - self) -> String {
     fn language(ampserand - self) -> Language {
     fn mnemonic_type(ampserand - self) -> MnemonicType {
