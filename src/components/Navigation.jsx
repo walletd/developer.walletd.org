@@ -208,7 +208,7 @@ export const navigation = [
   {
     title: 'Advanced', 
     links: [
-      { title: 'Building from source', href: '/build' },
+      { title: 'Building from source', href: '/building' },
     ],
   },
   {
