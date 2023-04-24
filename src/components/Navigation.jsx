@@ -195,15 +195,14 @@ export const navigation = [
     title: 'API Reference',
     links: [
       { title: 'Mnemonics API', href: '/mnemonics' },
-      { title: 'Blockchain Connector API', href: '/blockchains' },
+      { title: 'Blockchain Connector API', href: '/blockchains', links: [ { title: 'tesf', href: '/quickstart' } ] },
       { title: 'Wallet / Account API', href: '/wallets' },
-        // links: [
-        //   { title: 'Quickstart', href: '/quickstart' }
-        // ] 
-      
-      // { title: 'Key Management', href: '/key-management' },
     ],
   },
+  { title: 'Coin APIs', links: [ 
+      { title: 'Bitcoin', href: '/bitcoin' },
+      { title: 'Ethereum', href: '/ethereum' } 
+    ] },
   {
     title: 'Advanced', 
     links: [
