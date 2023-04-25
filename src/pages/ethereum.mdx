@@ -1,42 +1,17 @@
 export const description =
   'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
 
-For the most up-to-date examples for the key management functionality, please refer to the following folder of [examples on GitHub](non)
+If you haven't read the [Mnemonic API documentation](/mnemonics) and the [Blockchain Connector Documentation](/blockchains), we recommend you read that first.
 
-
-
-## Bitcoin
-
-WalletD currently supports using Blockstream to retrieve blockchain information.
-
-Expanding ways to retrieve this data through other means are part of the WalletD roadmap.
-
-For working with Bitcoin, you can import the following crates and modules:
-```rust 
-use walletd_bitcoin::{BitcoinWallet, BitcoinPrivateKey, Network};
-use walletd_bitcoin::blockstream::{BTransaction, Input, Output, Status};
-```
-
-
-
-## Ethereum
+# Ethereum
 
 WalletD currently supports any Ethereum endpoint that conforms to the Ethereum JSON-RPC standard for accessing Ethereum blockchain data.
 
 We recommend using [Infura](https://www.infura.io/), or [Alchemy](https://www.alchemy.com/pricing). Both services provide generous free plans that you can use.
 
-For working with Ethereum, you can import the following crates and modules:
-```rust 
-use walletd_bip39::{Language, Mnemonic, MnemonicHandler};
-use walletd_hd_key::HDNetworkType;
-use walletd_ethereum::EthereumWallet;
-use walletd_coin_model::{CryptoWallet, CryptoWalletBuilder};
-```
+## EthClient
 
-
-### EthClient
-
-## new()
+## new
 
 Creates a new instance of a blockchain connector
 
@@ -53,7 +28,7 @@ Creates a new instance of a blockchain connector
   Ok(())
 ```
 
-## block_data_from_U64(&eth_client, block_number);
+## block_data_from_U64
 
 Retrieving a block by its number
 ```rust
@@ -61,13 +36,76 @@ let block_number: U64 = U64::from(8455626);
 let block_data = EthClient::block_data_from_U64(&eth_client, block_number);
 ```
 
-Retrieving the latest block
+## latest_block
+
+Retrieves the data contained in the latest block from the blockchain
 ```rust
-let block_data = EthClient::block_data_from_U64(&eth_client, block_number);
+let latest_block_data = EthClient::latest_block(&eth_client);
 ```
-  
-  
-  
-  
-  l1......et latest_block_data = EthClient::latest_block(&eth_client);
+
+## transaction_data_from_hash
+
+Gets a transaction given a specific tx hash
+Returns a Result containing a Transaction object
+or an Error
+* `transaction_hash` - A H256 hash of a transaction
+```rust 
+use web3::types::H256;
+
+let tx_hash = "0xe4216d69bf935587b82243e68189de7ade0aa5b6f70dd0de8636b8d643431c0b";
+let tx = eth_client.transaction_data_from_hash(tx_hash);
 ```
+
+```rust
+fn transaction_data_from_hash(
+        &self,
+        tx_hash: &str
+    ) -> Result<web3::types::Transaction, Error> {
+```
+
+## balance
+
+Returns the balance of an address as an EthereumAmount
+
+It's important to omit the leading `0x` from the address variable per below
+```rust
+    let address: H160 = "00a329c0648769a73afac7f9381e08fb43dbea72";
+    let balance = self.web3.eth().balance(address, None).await?;
+    Ok(EthereumAmount { 
+      wei: balance
+    })
+}
+```
+Returns `Result<EthereumAmount, Error>`
+
+## gas_price
+
+```rust
+    let gas_price = eth_client.gas_price();
+```    
+
+## EthereumAmount
+
+The EthereumAmount struct is used to track and do rudamentiry Ethereum amount values.
+
+Creates a new EthereumAmount from a floating point representation of Ethereum (that is, 1 ETH = 10^18 wei)
+```rust
+let from_eth: EthereumAmount = 1.23; // 1230000000000000000 wei
+```
+
+Return the EthereumAmount's value in ETH
+```rust
+let from_eth: EthereumAmount = 1.23; // 1230000000000000000 wei
+let eth_amount = from_eth.eth();
+```
+Returns the number of wei in the amount
+```rust
+let from_eth: EthereumAmount = 1.23; // 1230000000000000000 wei
+let eth_amount = from_eth.wei();
+```
+Creates a new EthereumAmount from the wei amount
+```rust
+let from_eth: EthereumAmount = 1.23; // 1230000000000000000 wei
+let wei_value = from_wei.wei();
+``
+
