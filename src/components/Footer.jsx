@@ -197,19 +197,22 @@ function SocialLink({ href, icon: Icon, children }) {
 function SmallPrint() {
   return (
     <div className="flex flex-col items-center justify-between gap-5 border-t border-zinc-900/5 pt-8 dark:border-white/5 sm:flex-row">
-      <p className="text-xs text-zinc-600 dark:text-zinc-400">
-        &copy; Copyright {new Date().getFullYear()}. All rights reserved.
+      <div className="flex-1 text-xs text-zinc-600 dark:text-zinc-4ß00 w-full clear-both">
+        <p className="w-full">These docs are hosted on <a className= "text-white"href="https://github.com/walletd/developer.walletd.org">GitHub</a>. If you spot any mistakes, please either open an issue or create a pull request.</p>
+      </div>
+      <p className="text-xs text-zinc-600 dark:text-zinc-400 clear-left">
+        &copy; Copyright {new Date().getFullYear()}. All rights reserved. 
       </p>
       <div className="flex gap-4">
-        <SocialLink href="#" icon={TwitterIcon}>
+        {/* <SocialLink href="#" icon={TwitterIcon}>
           Follow us on Twitter
-        </SocialLink>
-        <SocialLink href="#" icon={GitHubIcon}>
+        </SocialLink> */}
+        <SocialLink href="https://github.com/walletd/" icon={GitHubIcon}>
           Follow us on GitHub
         </SocialLink>
-        <SocialLink href="#" icon={DiscordIcon}>
+        {/* <SocialLink href="#" icon={DiscordIcon}>
           Join our Discord server
-        </SocialLink>
+        </SocialLink> */}
       </div>
     </div>
   )
