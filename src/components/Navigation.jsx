@@ -194,33 +194,31 @@ export const navigation = [
   {
     title: 'API Reference',
     links: [
-      { title: 'Mnemonics API', href: '/mnemonics' },
-      { title: 'Blockchain Connector API', href: '/blockchains' },
-      { title: 'Wallet / Account API', 
-        href: '/wallets',
-        links: [
-          { title: 'Quickstart', href: '/quickstart' }
-        ] 
-      },
-      // { title: 'Key Management', href: '/key-management' },
+      { title: 'Mnemonics', href: '/mnemonics' },
+      { title: 'Blockchain Connector', href: '/blockchains', links: [ { title: 'tesf', href: '/quickstart' } ] },
+      { title: 'Wallet / Account Key Management', href: '/wallets' },
+      { title: 'Bitcoin', href: '/bitcoin' },
+      { title: 'Ethereum', href: '/ethereum' } 
     ],
   },
   {
     title: 'Advanced', 
     links: [
-      { title: 'Building from source', href: '/build' },
+      { title: 'Building From Source', href: '/building' },
     ],
   },
   {
     title: 'Issues', 
     links: [
-      { title: 'Reporting issues', href: '/issues' },
+      { title: 'Reporting Issues', href: '/issues' },
+      { title: 'Suggesting Features', href: '/suggesting-features' },
     ],
   },
   {
     title: 'Contributing',
     links: [
-      { title: 'How to contribute', href: '/' },
+      { title: 'How To Contribute', href: '/contributing' },
+      { title: 'Code Of Conduct', href: '/code-of-conduct' },
     ]
 
     // title: 'Releases',

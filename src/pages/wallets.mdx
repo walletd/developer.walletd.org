@@ -11,24 +11,50 @@ For the most up-to-date examples for WalletD's functionality, we recommend refer
 
 ### EthereumWallet
 
-#### How to initialise an Ethereum wallet
-EthClient is mentioned here as EthereumWallet requires an instance of EthClient to be initialised. For more info, refer to the [BlockChain Connector API](Test)
+#### How to initialise an Ethereum wallet from a mnemonic phrase
 
 ```rust
 let mnemonic_phrase: &str =
-  "outer ride ... dry point";
-let passphrase: Option<&str> = Some("mypassphrase");
+  "outer ride ... dry point"; // This is your 12-24 word mnemonic phrase
+let passphrase: Option<&str> = Some("mypassphrase"); // This is an optional passphrase. If you don't have one, you can use None() instead of Some()
 let restored_mnemonic =
     Mnemonic::from_phrase(Language::English, mnemonic_phrase, passphrase).unwrap();
-let seed = restored_mnemonic.to_seed();
-
-println!("seed as bytes: {:?}", seed.as_bytes());
-
+let seed = restored_mnemonic.to_seed(); 
 let wallet = match EthereumWallet::builder().with_mnemonic_seed(seed).with_network_type(HDNetworkType::TestNet).build() 
 {
     Ok(wallet) => Ok(wallet),
     Err(e) => Err(e),
 };
 ```
+#### How to send funds using an instance of wallet
 
-### EthereumAmount
+For this example, you'll need to import `web3::U256`. This is a Rust type used to denote the number of wei to transfer.
+```rust
+let mnemonic_phrase: &str =
+    "joy tail arena mix other envelope diary achieve short nest true vocal";
+let restored_mnemonic =
+    Mnemonic::builder().with_phrase(mnemonic_phrase).detect_language().build().unwrap();
+
+let seed = restored_mnemonic.to_seed();
+
+let blockchain_client = EthClient::new(
+    "YOURBLOCKCHAINCLIENTENDPOINT",
+).unwrap();
+
+let wallet = EthereumWallet::builder().with_mnemonic_seed(
+    seed).with_network_type(
+    HDNetworkType::TestNet).with_blockchain_client(Box::new(blockchain_client)).build().unwrap();
+
+// This example now assumes that the sending wallet has been funded with some Ethereum 
+let sa = U256::from(10000); // we want to send 10000 wei
+let send_amount = EthereumAmount::from_wei(sa); // 
+
+// TODO: Check EthereumAmount works
+
+let tx_hash = wallet.transfer(
+    &send_amount, 
+    GOERLI_TEST_ADDRESS,
+).await.unwrap();
+
+// If your wallet was funded, you've now transmitted a transaction to the blockchain you've stipulated when instantiating the EthClient instance
+```

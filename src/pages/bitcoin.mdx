@@ -3,6 +3,8 @@ export const description =
 
 For the most up-to-date examples for the key management functionality, please refer to the following folder of [examples on GitHub](non)
 
+
+
 ## Bitcoin
 
 WalletD currently supports using Blockstream to retrieve blockchain information.
@@ -10,11 +12,12 @@ WalletD currently supports using Blockstream to retrieve blockchain information.
 Expanding ways to retrieve this data through other means are part of the WalletD roadmap.
 
 For working with Bitcoin, you can import the following crates and modules:
-
-```rust
+```rust 
 use walletd_bitcoin::{BitcoinWallet, BitcoinPrivateKey, Network};
 use walletd_bitcoin::blockstream::{BTransaction, Input, Output, Status};
 ```
+
+
 
 ## Ethereum
 
@@ -23,25 +26,48 @@ WalletD currently supports any Ethereum endpoint that conforms to the Ethereum J
 We recommend using [Infura](https://www.infura.io/), or [Alchemy](https://www.alchemy.com/pricing). Both services provide generous free plans that you can use.
 
 For working with Ethereum, you can import the following crates and modules:
-
-```rust
+```rust 
 use walletd_bip39::{Language, Mnemonic, MnemonicHandler};
 use walletd_hd_key::HDNetworkType;
 use walletd_ethereum::EthereumWallet;
 use walletd_coin_model::{CryptoWallet, CryptoWalletBuilder};
 ```
 
+
 ### EthClient
 
-Creates a new instance of a blockchain connector. A blockchain connector is used to specify the endpoint of a node one wants to connect to.
+## new()
 
-### Include these use statements
+Creates a new instance of a blockchain connector
+
 ```rust
   use walletd_ethereum::EthClient;
+  use web3::types::U64;
   use walletd_coin_model::BlockchainConnector;
 ```
-### Example
 ```rust
   let endpoint: &str = "https://your-eth-endpoint.com";
-  let eth_client = EthClient::new(endpoint).unwrap();
+  let eth_client = EthClient::new(endpoint).unwrap();  
+
+  let _latest_block_data = EthClient::latest_block(&eth_client);
+  Ok(())
+```
+
+## block_data_from_U64(&eth_client, block_number);
+
+Retrieving a block by its number
+```rust
+let block_number: U64 = U64::from(8455626);
+let block_data = EthClient::block_data_from_U64(&eth_client, block_number);
+```
+
+Retrieving the latest block
+```rust
+let block_data = EthClient::block_data_from_U64(&eth_client, block_number);
+```
+  
+  
+  
+  
+  l1......et latest_block_data = EthClient::latest_block(&eth_client);
 ```
