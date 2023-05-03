@@ -1,17 +1,15 @@
 import { HeroPattern } from '@/components/HeroPattern'
+import { Libraries } from '@/components/Libraries'
 
 export const description =
   'Learn everything there is to know about WalletD and integrate WalletD into your product.'
 
 <HeroPattern />
 
-# WalletD API Documentation
 
-⚠️ This project is under heavy development. Expect bugs & breaking changes prior to v1.0.0's release.
+# What is WalletD?
 
-## What is WalletD?
-
-WalletD is an ecosystem designed to make using different cryptocurrencies easy. Built in Rust, we plan to make our [official crates](https://crates.io/crates/walletd) available for use on multiple platforms through the use of WASM libraries.
+WalletD is an SDK designed to make using different cryptocurrencies easy. Built in Rust, we plan to make our [official crates](https://crates.io/crates/walletd) available for use on multiple platforms through the use of WASM libraries.
 
 ## Status
 <Note>
@@ -30,17 +28,9 @@ Supports (or should support)
   <Button href="/quickstart" arrow="right" children="Quickstart" />
   <Button href="/walletd_overview" variant="outline" children="Explore WalletD" />
 </div>
+The various official Rust crates that provide the core functionality for the WalletD ecosystem are listed below. {{ className: 'lead' }}
 
-## Getting started {{ anchor: false }}
+<Libraries />
 
-To get started, you can either refer to the quickstart section of our documentation, or start reading through the API reference guides.
 
-<div className="not-prose">
-  <Button
-    href="/walletd_overview"
-    variant="text"
-    arrow="right"
-    children="Get your API key"
-  />
-</div>
 
