@@ -192,7 +192,7 @@ export const navigation = [
     ],
   },
   {
-    title: 'WalletD API Reference',
+    title: 'WalletD API Reference', href: "/walletd",
 
     links: [{ title: 'Wallet / Account Key Management', href: '/wallets' }],
   },
