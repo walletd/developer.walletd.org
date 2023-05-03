@@ -192,14 +192,17 @@ export const navigation = [
     ],
   },
   {
-    title: 'WalletD API Reference', href: "/walletd",
+    title: 'WalletD API Reference', 
 
-    links: [{ title: 'Wallet / Account Key Management', href: '/wallets' }],
+    links: [
+      { title: 'WalletD Overview', href: '/walletd' },
+      { title: 'Wallet / Account Key Management', href: '/wallets' },
+    ],
   },
   {
     title: 'Mnemonics & HD Keys',
     links: [
-      { title: 'Mnemonics', href: '/mnemonics' },
+      { title: 'BIP39 Mnemonic', href: '/bip39mnemonic' },
     ],
   },
   {
