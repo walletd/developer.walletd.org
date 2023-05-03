@@ -188,21 +188,26 @@ export const navigation = [
     title: 'Introduction',
     links: [
       { title: 'Overview', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' }
+      { title: 'Quickstart', href: '/quickstart' },
+      { title: 'Wallet / Account Key Management', href: '/wallets' },
     ],
   },
   {
-    title: 'API Reference',
+    title: 'Mnemonics & HD Keys',
     links: [
       { title: 'Mnemonics', href: '/mnemonics' },
-      { title: 'Blockchain Connector', href: '/blockchains', links: [ { title: 'tesf', href: '/quickstart' } ] },
-      { title: 'Wallet / Account Key Management', href: '/wallets' },
+    ],
+  },
+  {
+    title: 'Cryptocurrencies and Blockchains',
+    links: [
+      { title: 'Blockchain Connector', href: '/blockchains'},
       { title: 'Bitcoin', href: '/bitcoin' },
       { title: 'Ethereum', href: '/ethereum' } 
     ],
   },
   {
-    title: 'Advanced', 
+    title: 'Advanced',  
     links: [
       { title: 'Building From Source', href: '/building' },
     ],
