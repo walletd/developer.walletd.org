@@ -187,35 +187,44 @@ export const navigation = [
   {
     title: 'Introduction',
     links: [
-      { title: 'Introduction', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' },
-      { title: 'Mnemonics', href: '/mnemonics_guide' },
-      { title: 'HD Key', href: '/hd_key' },
-      { title: 'Bitcoin Wallet', href: '/bitcoin_wallet' },
-      { title: 'Ethereum Wallet', href: '/ethereum_wallet' },
-      { title: 'WalletD KeyPair', href: '/walletd_keypair' },
+      { title: 'Overview', href: '/' },
+      { title: 'Quickstart', href: '/quickstart' }
     ],
   },
   {
     title: 'API Reference',
     links: [
-      { title: 'Mnemonics', href: '/mnemonics' },
-      { title: 'HD Wallet', href: '/conversations' },
-      { title: 'Blockchain Connectors', href: '/messages' },
-      { title: 'Bitcoin', href: '/bitcoin' },
-      { title: 'Ethereum', href: '/ethereum' },
+      { title: 'Mnemonics API', href: '/mnemonics' },
+      { title: 'Blockchain Connector API', href: '/blockchains' },
+      { title: 'Wallet / Account API', 
+        href: '/wallets',
+        links: [
+          { title: 'Quickstart', href: '/quickstart' }
+        ] 
+      },
+      // { title: 'Key Management', href: '/key-management' },
     ],
   },
   {
     title: 'Advanced', 
     links: [
-      { title: 'Building from source', href: '/build' },
+      { title: 'Introduction', href: '/' },
+      { title: 'Quickstart', href: '/quickstart' },
+      { title: 'SDKs', href: '/sdks' },
+      { title: 'Authentication', href: '/authentication' },
+      { title: 'Pagination', href: '/pagination' },
+      { title: 'Errors', href: '/errors' },
+      { title: 'Webhooks', href: '/webhooks' },
     ],
   },
   {
     title: 'Issues', 
     links: [
-      { title: 'Reporting issues', href: '/issues' },
+      { title: 'Contacts', href: '/contacts' },
+      { title: 'Conversations', href: '/conversations' },
+      { title: 'Messages', href: '/messages' },
+      { title: 'Groups', href: '/groups' },
+      { title: 'Attachments', href: '/attachments' },
     ],
   },
   {
