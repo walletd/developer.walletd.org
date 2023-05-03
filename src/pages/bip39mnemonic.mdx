@@ -5,7 +5,72 @@ export const description =
 
 [walletd_bip39 Rust library crate](https://crates.io/crates/walletd_bip39)
 
-## Quickstart
+# Quickstart
+A quick way to access the different features related to the BIP39 mnemonic in this walletD library is to make use of the Bip39Mnemonic builder (Bip39MnemonicBuilder) which can be also be accessed with the default settings through `Bip39Mnemonic::builder()`.
+
+The default specifications for the Bip39MnemonicBuilder are: English language, 12 words in the mnemonic phrase, and no passphrase specified.
+You can get the mnemonic seed from the [Bip39Mnemonic] struct using the [`to_seed`][Bip39Mnemonic::to_seed] method.
+
+Here's how you can create a new randomly generated BIP39 mnemonic using the default specifications.
+```rust
+use walletd_bip39::prelude::*;
+
+let mnemonic = Bip39Mnemonic::builder().build()?;
+// display the generated mnemonic phrase
+println!("mnemonic phrase: {}", mnemonic.phrase());
+// can use the hex format specifier to print the seed as hex
+println!("mnemonic seed hex: {:x}", mnemonic.to_seed());
+// can use the as_bytes method to get the seed as a byte array
+println!("mnemonic seed as bytes: {:?}", mnemonic.to_seed().as_bytes());
+```
+
+You can override the default specifications by providing your desired specifications to the builder.
+You can also reuse the Bip39MnemonicBuilder object in a mutable way to create multiple BIP39 mnemonics and even override previous specifications.
+```rust
+let mut mnemonic_builder = Bip39Mnemonic::builder();
+
+// specify that the mnemonic phrase should consist of 24 words
+let mnemonic_1 = mnemonic_builder.mnemonic_type(Bip39MnemonicType::Words24).build()?;
+println!("mnemonic_1 phrase: {}", mnemonic_1.phrase());
+println!("mnemonic_1 seed hex: {:x}", mnemonic_1.to_seed());
+// see the number of entropy bits for the specified mnemonic type
+println!("mnemonic_1 number of entropy bits: {}", mnemonic_1.mnemonic_type().entropy_bits());
+
+// reuse builder but now specify 18 words in the mnemonic phrase
+let mnemonic_2 = mnemonic_builder.mnemonic_type(Bip39MnemonicType::Words18).build()?;
+println!("mnemonic_2 phrase: {}", mnemonic_2.phrase());
+println!("mnemonic_2 seed hex: {:x}", mnemonic_2.to_seed());
+println!("mnemonic_2 number of entropy bits: {}", mnemonic_2.mnemonic_type().entropy_bits());
+
+```
+
+It may be useful in some cases to provide all of the specifications even when using the some of the default settings.
+
+You can specify a passphrase to use when generating the mnemonic.
+Note that the same passphrase must be used when recovering the mnemonic.
+
+**Warning:**
+If a Bip39Mnemonic mnemonic phrase is generated using a specification of passphrase, both the mnemonic phrase and the passphrase is required to recover the Bip39Mnemonic.
+The specified passphrase is not stored in the Bip39Mnemonic struct. It is important to store the passphrase you specified securely as well as the mnemonic phrase to enable recovery of the Bip39Mnemonic.
+
+```rust
+let mnemonic_3 = Bip39Mnemonic::builder().passphrase("mypassphrase").mnemonic_type(Bip39MnemonicType::Words12).language(Bip39Language::English).build()?;
+println!("mnemonic_3 phrase: {}", mnemonic_3.phrase());
+println!("mnemonic_3 seed hex: {:x}", mnemonic_3.to_seed());
+```
+
+A Bip39Mnemonic can be restored from a specified valid mnemonic phrase or from a specified valid mnemonic phrase and passphrase if a passphrase was specified when the mnemonic was generated.
+
+```rust
+let mnemonic_phrase = "outer ride neither foil glue number place usage ball shed dry point";
+let restored_mnemonic_1 = Bip39Mnemonic::builder().mnemonic_phrase(mnemonic_phrase).build()?;
+println!("restored_mnemonic_1 phrase: {}", restored_mnemonic_1.phrase());
+println!("restored_mnemonic_1 seed hex: {:x}", restored_mnemonic_1.to_seed());
+
+let specified_passphrase = "mypassphrase";
+let restored_mnemonic_2 = Bip39Mnemonic::builder().mnemonic_phrase(mnemonic_phrase).passphrase(specified_passphrase).build()?;
+println!("restored_mnemonic_2 phrase: {}", restored_mnemonic_2.phrase());
+println!("restored_mnemonic_2 seed hex: {:x}", restored_mnemonic_2.to_seed());
 
 ## Bip39Mnemonic
 
