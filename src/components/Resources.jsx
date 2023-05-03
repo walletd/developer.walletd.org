@@ -10,8 +10,8 @@ import { UsersIcon } from '@/components/icons/UsersIcon'
 
 const resources = [
   {
-    href: '/cryptocurrencies',
-    name: 'Connecting to a blockchain',
+    href: '/mnemonics_guide',
+    name: 'Contacts',
     description:
       'Learn about how to use WalletD to interface with supported blockchain networks.',
     icon: UserIcon,
@@ -24,8 +24,8 @@ const resources = [
     },
   },
   {
-    href: '/conversations',
-    name: 'Key Management',
+    href: '/hd_wallet',
+    name: 'Conversations',
     description:
       'Learn about the conversation model and how to create, retrieve, update, delete, and list conversations.',
     icon: ChatBubbleIcon,
@@ -38,8 +38,8 @@ const resources = [
     },
   },
   {
-    href: '/messages',
-    name: 'Blockchain Connectors',
+    href: '/blockchain_connectors',
+    name: 'Messages',
     description:
       'Learn about the message model and how to create, retrieve, update, delete, and list messages.',
     icon: EnvelopeIcon,
@@ -52,8 +52,8 @@ const resources = [
     },
   },
   {
-    href: '/groups',
-    name: 'Coins',
+    href: '/bitcoin',
+    name: 'Groups',
     description:
       'Learn about the group model and how to create, retrieve, update, delete, and list groups.',
     icon: UsersIcon,
