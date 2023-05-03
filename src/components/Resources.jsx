@@ -10,7 +10,7 @@ import { UsersIcon } from '@/components/icons/UsersIcon'
 
 const resources = [
   {
-    href: '/contacts',
+    href: '/mnemonics_guide',
     name: 'Contacts',
     description:
       'Learn about the contact model and how to create, retrieve, update, delete, and list contacts.',
@@ -24,7 +24,7 @@ const resources = [
     },
   },
   {
-    href: '/conversations',
+    href: '/hd_wallet',
     name: 'Conversations',
     description:
       'Learn about the conversation model and how to create, retrieve, update, delete, and list conversations.',
@@ -38,7 +38,7 @@ const resources = [
     },
   },
   {
-    href: '/messages',
+    href: '/blockchain_connectors',
     name: 'Messages',
     description:
       'Learn about the message model and how to create, retrieve, update, delete, and list messages.',
@@ -52,7 +52,7 @@ const resources = [
     },
   },
   {
-    href: '/groups',
+    href: '/bitcoin',
     name: 'Groups',
     description:
       'Learn about the group model and how to create, retrieve, update, delete, and list groups.',
