@@ -189,7 +189,6 @@ export const navigation = [
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
-      { title: 'WalletD Overview', href: '/walletd_overview' },
       { title: 'Mnemonics', href: '/mnemonics_guide' },
       { title: 'HD Key', href: '/hd_key' },
       { title: 'Bitcoin Wallet', href: '/bitcoin_wallet' },
