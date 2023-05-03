@@ -187,22 +187,23 @@ export const navigation = [
   {
     title: 'Introduction',
     links: [
-      { title: 'Overview', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' }
+      { title: 'Introduction', href: '/' },
+      { title: 'Quickstart', href: '/quickstart' },
+      { title: 'Mnemonics', href: '/mnemonics_guide' },
+      { title: 'HD Key', href: '/hd_key' },
+      { title: 'Bitcoin Wallet', href: '/bitcoin_wallet' },
+      { title: 'Ethereum Wallet', href: '/ethereum_wallet' },
+      { title: 'WalletD KeyPair', href: '/walletd_keypair' },
     ],
   },
   {
     title: 'API Reference',
     links: [
-      { title: 'Mnemonics API', href: '/mnemonics' },
-      { title: 'Blockchain Connector API', href: '/blockchains' },
-      { title: 'Wallet / Account API', 
-        href: '/wallets',
-        links: [
-          { title: 'Quickstart', href: '/quickstart' }
-        ] 
-      },
-      // { title: 'Key Management', href: '/key-management' },
+      { title: 'Mnemonics', href: '/mnemonics' },
+      { title: 'HD Wallet', href: '/conversations' },
+      { title: 'Blockchain Connectors', href: '/messages' },
+      { title: 'Bitcoin', href: '/bitcoin' },
+      { title: 'Ethereum', href: '/ethereum' },
     ],
   },
   {
