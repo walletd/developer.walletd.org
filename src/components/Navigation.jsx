@@ -189,8 +189,12 @@ export const navigation = [
     links: [
       { title: 'Overview', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
-      { title: 'Wallet / Account Key Management', href: '/wallets' },
     ],
+  },
+  {
+    title: 'WalletD API Reference',
+
+    links: [{ title: 'Wallet / Account Key Management', href: '/wallets' }],
   },
   {
     title: 'Mnemonics & HD Keys',
