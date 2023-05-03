@@ -1,5 +1,46 @@
-export const description =
-  'This guide will get you all set up and ready to use the Protocol API. We’ll cover how to get started an API client and how to make your first API request.'
+export const description = 'WalletD Quickstart'
+
+# Quickstart
+
+This guide will help you get set up and ready to use the WalletD Rust Library. 
+We'll cover how to install Rust, add [walletD](https://crates.io/crates/walletd) to an existing Rust project, and get started with using its features.
+
+## Installing Rust
+
+Rust can be installed using your package manager of choice or [rustup.rs](https://rustup.rs). 
+
+Refer to [`the Rust book`](https://doc.rust-lang.org/book/) for more guidance on the installation and how to [set up a Rust project directory](https://doc.rust-lang.org/book/ch01-02-hello-world.html).
+
+
+## Install the `WalletD` crate
+
+It is recommended that `WalletD` be installed from the command-line in order to ensure you download the latest version of it.
+
+### Installing via the CLI (recommended)
+
+<CodeGroup>
+
+```bash {{ title: 'MacOS' }}
+cargo add walletd
+```
+
+```bash {{ title: 'Windows' }}
+cargo add walletd
+```
+
+```bash {{ title: 'Linux' }}
+cargo add walletd
+```
+
+</CodeGroup>
+
+### Installing via the Cargo.toml file
+
+Add the following line to your Cargo.toml file. Make sure you put it under the dependencies heading, then rebuild your project.
+```
+walletd = "0.1.0"
+```
+
 
 # Quickstart
 
