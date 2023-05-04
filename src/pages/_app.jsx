@@ -23,9 +23,9 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         {router.pathname === '/' ? (
-          <title>WalletD Reference</title>
+          <title>Protocol API Reference</title>
         ) : (
-          <title>{`${pageProps.title} - WalletD Reference`}</title>
+          <title>{`${pageProps.title} - Protocol API Reference`}</title>
         )}
         <meta name="description" content={pageProps.description} />
       </Head>

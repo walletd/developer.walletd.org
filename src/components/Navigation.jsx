@@ -189,17 +189,21 @@ export const navigation = [
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
+      { title: 'SDKs', href: '/sdks' },
       { title: 'Authentication', href: '/authentication' },
+      { title: 'Pagination', href: '/pagination' },
       { title: 'Errors', href: '/errors' },
+      { title: 'Webhooks', href: '/webhooks' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { title: 'Mnemonics', href: '/contacts' },
-      { title: 'Key Management', href: '/conversations' },
-      { title: 'Blockchain Connectors', href: '/messages' },
-      { title: 'Coins', href: '/groups' },
+      { title: 'Contacts', href: '/contacts' },
+      { title: 'Conversations', href: '/conversations' },
+      { title: 'Messages', href: '/messages' },
+      { title: 'Groups', href: '/groups' },
+      { title: 'Attachments', href: '/attachments' },
     ],
   },
 ]
