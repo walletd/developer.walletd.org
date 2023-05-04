@@ -2,3 +2,70 @@ export const description =
   'In this guide, we will look at how to implement a Ethereum wallet using walletD.'
 
 # Ethereum Wallet
+
+The EthereumWallet struct is the main entry point to access walletD functionality for Ethereum.
+
+ ## Import from Seed
+
+ Here's how you can import an Ethereum wallet based on a master HDKey. We will use the `mut` keyword to make the ethereum walletEthereumWallet
+ By importing the `ethereum_wallet` fom a `master_hd_key` will both the EthereumPrivateKey and the EthereumPublicKey will be provided to the `ethereum_wallet`.
+```rust
+
+ use walletd_ethereum::prelude::*;
+ use walletd_hd_key::prelude::*;
+
+ let master_seed = Seed::from_str("a2fd9c0522d84d52ee4c8533dc02d4b69b4df9b6255e1af20c9f1d4d691689f2a38637eb1ec778972bf845c32d5ae83c7536999b5666397ac32021b21e0accee")?;
+ let master_hd_key = HDKey::new_master(master_seed, HDNetworkType::TestNet)?;
+ let mut ethereum_wallet = EthereumWallet::builder().master_hd_key(master_hd_key).build()?;
+ let public_address = ethereum_wallet.public_address();
+ println!("ethereum wallet public address: {}", public_address);
+ ```
+
+ ## Default Derivation Path
+
+ Deriving an EthereumWallet is simple and uses some default settings under the hood.
+ We can inspect our `ethereum_wallet` to see that a child `derived_hd_key` was derived from the master `master_hd_key` and see the derivation path HDPath that was used by default.
+```rust
+
+ let derived_hd_key = ethereum_wallet.derived_hd_key()?;
+ let address_derivation_path = derived_hd_key.derivation_path;
+ println!("address derivation path: {}", address_derivation_path);
+ ```
+ We see that by default the Ethereum wallet uses the derivation path "m/44'/60'/0'/0/" corresponding to  BIP44 for the purpose valueHDPurpose::BIP44
+
+ We need to add a blockchain connectorBlockchainConnector to our ethereum walletEthereumWallet
+
+
+ ## Adding a Blockchain Connector
+ Here's an example of how to add an instance of EthClient to our `ethereum_wallet`.
+ EthClient currently supports any Ethereum endpoint that conforms to the Ethereum JSON-RPC standard for accessing Ethereum blockchain data.
+ We recommend using Infura(https://www.infura.io/), or Alchemy(https://www.alchemy.com/pricing). Both services provide generous free plans that you can use.
+ Note that the url used to connect needs to match the network type being used (pay attention to the difference between testnet networks (used for testing and development purposes) and the mainnet network (where coins have actual value).
+
+```rust
+
+  let ethclient_url = "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161";
+  let eth_client = EthClient::new(ethclient_url)?;
+  ethereum_wallet.set_blockchain_client(eth_client);
+ ```
+
+ ## Using EthClient
+ The blockchain client `ethclient` can be used separately from the `ethereum_wallet` to access blockchain data such as details of a transaction given a tx hash, the current block number, or the current gas price.
+```rust
+
+ let tx_hash = "0xe4216d69bf935587b82243e68189de7ade0aa5b6f70dd0de8636b8d643431c0b";
+ let tx = eth_client.transaction_data_from_hash(tx_hash).await?;
+ let block_number = eth_client.current_block_number().await;
+ let gas_price = eth_client.gas_price().await;
+ println!("transaction data: {:?}", tx);
+ ```
+
+ ## Check Balance
+ When the `ethereum_wallet` is connected to the blockchain, we can find the balance of the wallet.
+```rust
+
+ let balance = ethereum_wallet.balance().await?;
+ println!("ethereum wallet balance: {} ETH, ({} wei)", balance.eth(), balance.wei());
+ ```
+
+
