@@ -46,21 +46,12 @@ For the most up-to-date examples for the cryptocurrency functionality, please re
 
 ## Getting started with Bitcoin
 
-The WalletD team is hard at work polishing up our prepared alpha, and will be adding quickstart documentation for Bitcoin very soon.
+
 
 ## Getting started with Ethereum
 
+### Initialise an Ethereum Client
 
-
-### How to query an account balance
-
-```rust
-    let eth_client = EthClient::new(&INFURA_GOERLI_ENDPOINT.to_string()).unwrap();
-    let address: H160 = "00a329c0648769a73afac7f9381e08fb43dbea72".parse().unwrap();
-    let _balance = eth_client.balance(address).await.unwrap();
-```    
-
-### How to retrieve a specific block fraom  the Ethereum blockchain
 ```rust
 use walletd_ethereum::EthClient;
 
@@ -78,12 +69,10 @@ async fn main() -> web3::Result<()> {
 }
 ```
 
-
 ### How to get a cryptocurrency's block data
 
 ```rust
 use walletd_ethereum::EthClient;
-use walletd_ethereum::
 use web3::types::U64;
 
 #[tokio::main]
