@@ -1,89 +1,101 @@
-export const description = 'WalletD Quickstart'
+export const description =
+  'This guide will get you all set up and ready to use the Protocol API. We’ll cover how to get started an API client and how to make your first API request.'
 
 # Quickstart
 
-Let's get you up and started using WalletD. This guide describes how to add [WalletD](https://crates.io/) to an existing Rust project. It assumes that you already have Rust installed, and an existing project you want to use WalletD for. {{ className: 'lead' }}
+This guide will get you all set up and ready to use the Protocol API. We'll cover how to get started using one of our API clients and how to make your first API request. We'll also look at where to go next to find all the information you need to take full advantage of our powerful REST API. {{ className: 'lead' }}
 
-### Status
 <Note>
-  ⚠️ This project is under heavy development. Expect bugs & breaking changes prior to v1.0.0's release.
+  Before you can make requests to the Protocol API, you will need to grab your
+  API key from your dashboard. You find it under [Settings &raquo; API](#).
 </Note>
 
-## Install the `WalletD` crate
+## Choose your client
 
-It is recommended that `WalletD` be installed from the command-line in order to ensure you download the latest version of it.
-
-### Installing via the CLI (recommended)
+Before making your first API request, you need to pick which API client you will use. In addition to good ol' cURL HTTP requests, Protocol offers clients for JavaScript, Python, and PHP. In the following example, you can see how to install each client.
 
 <CodeGroup>
 
-```bash {{ title: 'MacOS' }}
-cargo add walletd
+```bash {{ title: 'cURL' }}
+# cURL is most likely already installed on your machine
+curl --version
 ```
 
-```bash {{ title: 'Windows' }}
-cargo add walletd
+```bash {{ language: 'js' }}
+# Install the Protocol JavaScript SDK
+npm install @example/protocol-api --save
 ```
 
-```bash {{ title: 'Linux' }}
-cargo add walletd
+```bash {{ language: 'python' }}
+# Install the Protocol Python SDK
+pip install protocol_api
+```
+
+```bash {{ language: 'php' }}
+# Install the Protocol PHP SDK
+composer require protocol/sdk
 ```
 
 </CodeGroup>
 
-### Installing via the Cargo.toml file
+<div className="not-prose">
+  <Button
+    href="/sdks"
+    variant="text"
+    arrow="right"
+    children="Check out our list of first-party SDKs"
+  />
+</div>
 
-Add the following line to your Cargo.toml file. Make sure you put it under the dependencies heading, then rebuild your project.
-```
-walletd = "0.1.0"
-```
+## Making your first API request
 
-### Next steps
+After picking your preferred client, you are ready to make your first call to the Protocol API. Below, you can see how to send a GET request to the Conversations endpoint to get a list of all your conversations. In the cURL example, results are limited to ten conversations, the default page length for each client.
 
-Read through the following example code to get an idea of how simple it is to work with WalletD.
+<CodeGroup tag="GET" label="/v1/conversations">
 
-For the most up-to-date examples for the cryptocurrency functionality, please refer to the following folder of [examples on GitHub](non)
-
-## Getting started with Bitcoin
-
-
-
-## Getting started with Ethereum
-
-### Initialise an Ethereum Client
-
-```rust
-use walletd_ethereum::EthClient;
-
-#[tokio::main]
-async fn main() -> web3::Result<()> {
-    let eth_client = EthClient::new(&INFURA_GOERLI_ENDPOINT.to_string()); // initialise blockchain client
-
-    let block_number = eth_client.current_block_number().await; // retrieve latest block number
-    let gas_price = eth_client.gas_price().await; // retrieve current gas price
-
-    println!("Block number: {:#?}", block_number);
-    println!("Gas price: {:#?}", gas_price);
-
-    Ok(())
-}
+```bash {{ title: 'cURL' }}
+curl -G https://api.protocol.chat/v1/conversations \
+  -H "Authorization: Bearer {token}" \
+  -d limit=10
 ```
 
-### How to get a cryptocurrency's block data
+```js
+import ApiClient from '@example/protocol-api'
 
-```rust
-use walletd_ethereum::EthClient;
-use web3::types::U64;
+const client = new ApiClient(token)
 
-#[tokio::main]
-async fn main() -> web3::Result<()> {
-    let eth_client = EthClient::new(&VALID_BLOCKCHAIN_URL.to_string()); // instantiate an instance of EthClient
-    let block_number: U64 = U64::from(8455626); // Gets blockchain information for a specified block number
-
-
-    let latest_block = EthClient::block_data_from_U64(&eth_client, block_number); // Gets the block data for the latest block
-    let latest_block_data = EthClient::latest_block(&eth_client); // latest_block_data contains data for an Ethereum block
-    Ok(())
-}
+await client.conversations.list()
 ```
 
+```python
+from protocol_api import ApiClient
+
+client = ApiClient(token)
+
+client.conversations.list()
+```
+
+```php
+$client = new \Protocol\ApiClient($token);
+
+$client->conversations->list();
+```
+
+</CodeGroup>
+
+<div className="not-prose">
+  <Button
+    href="/conversations"
+    variant="text"
+    arrow="right"
+    children="Read the docs for the Conversations endpoint"
+  />
+</div>
+
+## What's next?
+
+Great, you're now set up with an API client and have made your first request to the API. Here are a few links that might be handy as you venture further into the Protocol API:
+
+- [Grab your API key from the Protocol dashboard](#)
+- [Check out the Conversations endpoint](/conversations)
+- [Learn about the different error messages in Protocol](/errors)
