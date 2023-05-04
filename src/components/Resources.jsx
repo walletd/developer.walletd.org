@@ -10,10 +10,10 @@ import { UsersIcon } from '@/components/icons/UsersIcon'
 
 const resources = [
   {
-    href: '/mnemonics_guide',
-    name: 'Contacts',
+    href: '/mnemonics',
+    name: 'Mnemonics',
     description:
-      'Learn about the contact model and how to create, retrieve, update, delete, and list contacts.',
+      'Learn about features for handling mnemonics in walletD.',
     icon: UserIcon,
     pattern: {
       y: 16,
@@ -25,9 +25,9 @@ const resources = [
   },
   {
     href: '/hd_wallet',
-    name: 'Conversations',
+    name: 'HD Wallet',
     description:
-      'Learn about the conversation model and how to create, retrieve, update, delete, and list conversations.',
+      'Learn how walletD facilitates the use of HD wallets.',
     icon: ChatBubbleIcon,
     pattern: {
       y: -6,
@@ -37,25 +37,37 @@ const resources = [
       ],
     },
   },
-  {
-    href: '/blockchain_connectors',
-    name: 'Messages',
-    description:
-      'Learn about the message model and how to create, retrieve, update, delete, and list messages.',
-    icon: EnvelopeIcon,
-    pattern: {
-      y: 32,
-      squares: [
-        [0, 2],
-        [1, 4],
-      ],
-    },
-  },
+  // {
+  //   href: '/blockchain_connectors',
+  //   name: 'Blockchain Connectors',
+  //   description:
+  //     'Learn about how walletD helps you connect to decentralized blockchains.',
+  //   icon: EnvelopeIcon,
+  //   pattern: {
+  //     y: 32,
+  //     squares: [
+  //       [0, 2],
+  //       [1, 4],
+  //     ],
+  //   },
+  // },
   {
     href: '/bitcoin',
-    name: 'Groups',
+    name: 'Bitcoin',
     description:
-      'Learn about the group model and how to create, retrieve, update, delete, and list groups.',
+      'Learn about how walletD simplifies interacting with Bitcoin.',
+    icon: UsersIcon,
+    pattern: {
+      y: 22,
+      squares: [[0, 1]],
+    },
+  },
+
+  {
+    href: '/ethereum',
+    name: 'Ethereum',
+    description:
+      'Learn about how walletD simplifies interacting with Ethereum.',
     icon: UsersIcon,
     pattern: {
       y: 22,
