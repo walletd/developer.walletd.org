@@ -3,19 +3,70 @@ export const description =
 
 # Bitcoin Wallet
 
-Go to the WalletD GitHub repository at https://github.com/walletd-org/walletd.
-1. Click on the Issues tab in the navigation menu.
-1. Click on the New Issue button to create a new issue.
-1. Provide a descriptive title for your issue or feature suggestion in the Title field.
-1. In the comment box, provide detailed information about the issue or feature suggestion. For issues, include steps to reproduce the problem, error messages, and any relevant code snippets. For feature suggestions, describe the desired functionality and any potential use cases.
-1. If applicable, specify the version of WalletD that you are using, along with the version of Rust and any other relevant dependencies.
-1. You can also use labels and milestones to categorize and prioritize your issue or feature suggestion.
-1. Click on the Submit new issue button to create the issue.
-1. When logging issues for a Rust package like WalletD, it's important to include as much relevant information as possible, including:
+ The BitcoinWallet struct is the main entry point to access walletD functionality for Bitcoin.
 
-Steps to reproduce the issue: Provide a detailed description of the steps you followed to encounter the issue, including any relevant code snippets or configuration settings.
-Error messages: Include any error messages or logs related to the issue, if available.
-WalletD version: Specify the version of WalletD that you are using when logging the issue, as different versions may have different behaviors or known issues.
-Rust version: Provide the version of Rust that you are using, as this can also affect the behavior of WalletD.
-Dependencies: If the issue is related to a specific dependency of WalletD, provide information about the version of that dependency that you are using.
-By logging issues and feature requests on GitHub, you can contribute to improving the WalletD project and help make it even better!
+ ## Import from Seed
+
+ Here's how you can access a bitcoin wallet based on a master Seed.
+ The Seed can be derived from a Mnemonic using the Mnemonic::to_seed method.
+```rust
+
+ use walletd_bitcoin::prelude::*;
+ use walletd_hd_key::prelude::*;
+ let master_seed = Seed::from_str("a2fd9c0522d84d52ee4c8533dc02d4b69b4df9b6255e1af20c9f1d4d691689f2a38637eb1ec778972bf845c32d5ae83c7536999b5666397ac32021b21e0accee")?;
+ let network_type = HDNetworkType::TestNet;
+ let master_hd_key = HDKey::new_master(master_seed, network_type)?;
+ let mut btc_wallet = BitcoinWallet::builder().master_hd_key(master_hd_key).build()?;
+ ```
+
+ ## Default Derivation Path
+
+ Deriving a BitcoinWallet is simple and uses some default settings under the hood.
+ When using [BitcoinWalletBuilder], the default settings set the [AddressType] as ['P2wpkh`][bitcoin::AddressType::P2wpkh] and the corresponding default [HDPurpose] for the derivation path is set as [HDPurpose::BIP49].
+```rust
+
+ use walletd_bitcoin::bitcoin;
+   assert_eq!(btc_wallet.address_format(), bitcoin::AddressType::P2wpkh);
+   assert_eq!(btc_wallet.hd_path_builder().purpose, Some(HDPurpose::BIP84.to_shortform_num()));
+
+```
+
+ ## Using Blockstream as Blockchain Connector
+
+ The BitcoinWallet struct can be used to access blockchain data through a BlockchainConnector such as Blockstream.
+ The Blockstream instance can be used on its own to access blockchain data such as fee estimates.
+ It can be affiliated with a BitcoinWallet to enable the BitcoinWallet to access blockchain data and send transactions.
+```rust
+
+ let btc_client = Blockstream::new("https://blockstream.info/testnet/api")?;
+ let fee_estimates = btc_client.fee_estimates().await?;
+ println!("fee estimates: {:?}", fee_estimates);
+ btc_wallet.set_blockchain_client(btc_client);
+ ```
+
+ ## Sync BitcoinWallet, Load BitcoinAddresses
+
+ The BitcoinWallet struct can be used to sync the wallet with the blockchain and load the associated BitcoinAddresses.
+```rust
+
+ let btc_client = Blockstream::new("https://blockstream.info/testnet/api")?;
+ let fee_estimates = btc_client.fee_estimates().await?;
+ println!("fee estimates: {:?}", fee_estimates);
+ btc_wallet.set_blockchain_client(btc_client);
+ for addr in btc_wallet.associated_info() {
+     println!("address: {}, derivation path {}",
+     addr.address.public_address(), addr.hd_key().derivation_path().to_string());
+ }
+ println!("next receive address: {}", btc_wallet.receive_address()?);
+ println!("next change address: {}", btc_wallet.next_change_address()?.public_address());
+```
+
+## Check Wallet Balance
+```rust
+ let balance = btc_wallet.balance().await?;
+ println!(
+     "bitcoin wallet balance: {} BTC, ({} satoshi",
+     balance.btc(),
+     balance.satoshi()
+ );
+ ```
