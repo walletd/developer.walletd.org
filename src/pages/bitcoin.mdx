@@ -1,5 +1,82 @@
 export const description =
   'On this page, we’ll dive into the Bitcoin features in walletD.'
 
-# Bitcoin
+# WalletD Bitcoin
 
+## BitcoinWallet
+	 Represents a Bitcoin wallet which can have multiple BitcoinAddress structs associated with it which are derived from a single master HD key.
+
+- ###  add(&mut self, associated: &AssociatedAddress) 
+	 -	 Adds an address to the wallet if it is not already present
+
+- ###  associated_info(&self) -> &[AssociatedAddress] 
+	 -	 Returns the associated info
+
+- ###  addresses(&self) -\> Vec\<BitcoinAddress\> 
+	 -	 Returns a vector of the BitcoinAddress objects associated with the wallet
+
+- ###  coin_type_id(&self) -\> Result\<u32, Error\> 
+	 -	 Returns the coin type id num based on the network
+
+- ###  default_hd_purpose(&self) -\> Result\<HDPurpose, Error\> 
+	 -	 Returns the default HDPurpose based on the address format
+
+- ###  address_format(&self) -> AddressType 
+	 -	 Discovers previously used addresses by searching in sequential order based on master HDKey and a derivation type,
+	 stopping discovery when gap limit (n consecutive addresses without transaction history) has been met.
+	 Only considers change index = 0 (the receiving/external chain) when
+	 considering the gap limit but if there is transaction history with
+	 change index = 1 it is added as an associated address.
+	 If the account discovery setting is false, it will only search for addresses in the first account (account_index = 0).
+	 Returns the address format
+
+- ###  master_hd_key(&self) -\> Result\<HDKey, Error\> 
+	 -	 Returns the master HDKey, if it exists otherwise returns an error
+
+- ###  network(&self) -\> Result\<Network, Error\> 
+	 -	 Returns the network based on the master HDKey
+
+- ###  next_address(&self) -\> Result\<BitcoinAddress, Error\> 
+	 -	 Returns a BitcoinAddress object on the the next available address on the first account (account_index = 0)
+	
+- ###  next_change_address(&self) -\> Result\<BitcoinAddress, Error\> 
+	 -	 Considering only account 0, returns the next change address corresponding to 1 + the max existing change address index
+	 Change addresses are used for sending change back to the wallet and have a value of 1 instead of 0 in the derivation path for the change index
+
+- ###  set_gap_limit(&mut self, gap_limit: usize) 
+	 -	 Set the gap limit to use when searching for addresses, if not set, the default gap limit is used
+
+- ###  set_account_discovery(&mut self, account_discovery: bool) 
+	 -	 Set the account discovery flag, if set to true, the wallet will search for addresses on all accounts, if set to false, the wallet will only search for addresses on the first account
+	 If not set, the default value is true
+
+- ###  set_hd_path_builder(&mut self, hd_path_builder: HDPathBuilder) 
+	 -	 Set the HDPathBuilder to use when deriving addresses, if not set, the default HDPathBuilder is used
+
+- ###  gap_limit(&self) -> usize 
+	 -	 Returns the gap limit that is being used when searching for addresses with this wallet
+
+- ###  account_discovery(&self) -> bool 
+	 -	 Returns the account discovery flag that is being used when searching for addresses with this wallet
+
+- ###  hd_path_builder(&self) -> HDPathBuilder 
+	 -	 Returns the HDPathBuilder that is being used when deriving addresses with this wallet
+	 If no HDPathBuilder has been set, the default HDPathBuilder that is being used is returned
+
+- ###  signature_sighashall_for_transaction_hash() -\> Result\<String, Error\> 
+	 -	 This function is used to calculate the signature as a hex encoded string with the option sighashall for a given transaction hash using a provided private key
+
+- ###  sign_tx() -\> Result\<BTransaction, Error\> 
+	 -	 Signs a transaction with the provided private keys and returns the signed transaction
+
+- ###  choose_inputs_and_set_fee() -\> Result\<(Vec\<Input\>, BitcoinAmount, Vec\<usize\>), Error\> 
+	 -	 Goal is to find a combination of the fewest inputs that is bigger than
+	 what we need - close to twice the send amount while not producing a
+	 change amount that is smaller than what the fee would be to spend that
+	 amount
+
+- ###  estimate_fee_with_default_sizes() -\> Result\<u64, Error\> 
+	 -	 Estimates the fee for a transaction with the given number of inputs and outputs given the fee per byte, makes use of default sizes to estimate the size of the tranasaction and the corresponding fee
+
+- ###  prepare_transaction() -\> Result\<(BTransaction, Vec\<usize\>), Error\> 
+	 -	 Prepares a transaction to be signed and broadcasted
