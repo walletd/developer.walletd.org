@@ -200,7 +200,7 @@ export const navigation = [
     links: [
       { title: 'Mnemonics', href: '/mnemonics' },
       { title: 'HD Wallet', href: '/hd_wallet' },
-      { title: 'Blockchain Connectors', href: '/blockchain_connectors' },
+      // { title: 'Blockchain Connectors', href: '/blockchain_connectors' },
       { title: 'Bitcoin', href: '/bitcoin' },
       { title: 'Ethereum', href: '/ethereum' },
     ],

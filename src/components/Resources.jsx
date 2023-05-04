@@ -37,20 +37,20 @@ const resources = [
       ],
     },
   },
-  // {
-  //   href: '/blockchain_connectors',
-  //   name: 'Blockchain Connectors',
-  //   description:
-  //     'Learn about how walletD helps you connect to decentralized blockchains.',
-  //   icon: EnvelopeIcon,
-  //   pattern: {
-  //     y: 32,
-  //     squares: [
-  //       [0, 2],
-  //       [1, 4],
-  //     ],
-  //   },
-  // },
+  {
+    href: '/blockchain_connectors',
+    name: 'Blockchain Connectors',
+    description:
+      'Learn about how walletD helps you connect to decentralized blockchains.',
+    icon: EnvelopeIcon,
+    pattern: {
+      y: 32,
+      squares: [
+        [0, 2],
+        [1, 4],
+      ],
+    },
+  },
   {
     href: '/bitcoin',
     name: 'Bitcoin',
