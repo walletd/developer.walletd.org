@@ -37,8 +37,8 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 - ###  `mnemonic_type(&self) -> Bip39MnemonicType` 
 	 -	 Gets the mnemonic_type data
 
-## `Bip39MnemonicType Enum
- 	 Represents the different number of words that can be used for a valid Bip39Mnemoniccrate::Bip39Mnemonic
+## `Bip39MnemonicType` Enum
+ 	 Represents the different number of words that can be used for a valid `Bip39Mnemonic`
 	
 - ### `Words12` 
 	 12 word mnemonic phrase
@@ -84,7 +84,7 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	
 	 The choice of language for a mnemonic phrase not only determines the words
 	 used, but also has an impact on the binary value of each word when the
-	 `Bip39Mnemonic`(crate::Bip39Mnemonic) is converted into a `Seed`(crate::Seed).
+	 `Bip39Mnemonic` is converted into a `Seed.
 	
 	 English is the only officially supported language, the rest are provided for
 	 convenience.
