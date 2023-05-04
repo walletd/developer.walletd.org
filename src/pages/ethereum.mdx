@@ -1,360 +1,96 @@
 export const description =
   'On this page, we’ll dive into the features related to Ethereum that walletD currently provides.'
 
-# Ethereum
-
-Attachments are how you share things in Protocol — they allow you to send all sorts of files to your contacts and groups. On this page, we'll dive into the different attachment endpoints you can use to manage attachments programmatically. We'll look at how to query, upload, update, and delete attachments. {{ className: 'lead' }}
-
-## The attachment model
-
-The attachment model contains all the information about the files you send to your contacts and groups, including the name, type, and size.
-
-### Properties
-
-<Properties>
-  <Property name="id" type="string">
-    Unique identifier for the attachment.
-  </Property>
-  <Property name="message_id" type="string">
-    Unique identifier for the message associated with the attachment.
-  </Property>
-  <Property name="filename" type="string">
-    The filename for the attachment.
-  </Property>
-  <Property name="file_url" type="string">
-    The URL for the attached file.
-  </Property>
-  <Property name="file_type" type="string">
-    The MIME type of the attached file.
-  </Property>
-  <Property name="file_size" type="integer">
-    The file size of the attachment in bytes.
-  </Property>
-  <Property name="created_at" type="timestamp">
-    Timestamp of when the attachment was created.
-  </Property>
-</Properties>
-
----
-
-## List all attachments {{ tag: 'GET', label: '/v1/attachments' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve a paginated list of all your attachments (in a conversation if a conversation id is provided). By default, a maximum of ten attachments are shown per page.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="conversation_id" type="string">
-        Limit to attachments from a given conversation.
-      </Property>
-      <Property name="limit" type="integer">
-        Limit the number of attachments returned.
-      </Property>
-    </Properties>
+# WalletD Ethereum
 
-  </Col>
-  <Col sticky>
+## EthereumWallet
+	 Contains the information needed to interact with an Ethereum wallet with a single public address associated with it.
 
-    <CodeGroup title="Request" tag="GET" label="/v1/attachments">
+- ###  address_format(&self) -> EthereumFormat 
+	 -	 Returns the address format used by the wallet
 
-    ```bash {{ title: 'cURL' }}
-    curl -G https://api.protocol.chat/v1/attachments \
-      -H "Authorization: Bearer {token}" \
-      -d conversation_id="xgQQXg3hrtjh7AvZ" \
-      -d limit=10
-    ```
+- ###  public_address(&self) -> String 
+	 -	 Returns the public address of the wallet
 
-    ```js
-    import ApiClient from '@example/protocol-api'
+- ###  network(&self) -> HDNetworkType 
+	 -	 Returns the network type used by the wallet
 
-    const client = new ApiClient(token)
+- ###  public_key(&self) -\> Result\<EthereumPublicKey, Error\> 
+	 -	 Returns the public key of the wallet
 
-    await client.attachments.list()
-    ```
+- ###  private_key(&self) -\> Result\<EthereumPrivateKey, Error\> 
+	 -	 Returns the private key of the wallet if it exists, otherwise returns an error
 
-    ```python
-    from protocol_api import ApiClient
+- ###  master_hd_key(&self) -\> Result\<HDKey, Error\> 
+	 -	 Returns the master HD key of the wallet if it exists, otherwise returns an error
 
-    client = ApiClient(token)
-
-    client.attachments.list()
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
+- ###  derived_hd_key(&self) -\> Result\<HDKey, Error\> 
+	 -	 Returns the derived HD key of the wallet if it exists, otherwise returns an error
 
-    $client->attachments->list();
-    ```
+## EthereumWalletBuilder
+	 Builder for EthereumWallet, allows for specification of options for the ethereum wallet
 
-    </CodeGroup>
+- ###  default() -> Self 
+	 -	 Specifies the default options for the EthereumWalletBuilder
+	 The default address format is EthereumFormat::Checksummed
+	 The default network type is HDNetworkType::MainNet
+	 The default HDPathBuilder is `m/44'/60'/0'/0/0`
+	 By default neither the master HD key nor the mnemonic seed are specified
 
-    ```json {{ title: 'Response' }}
-    {
-      "has_more": false,
-      "data": [
-        {
-          "id": "Nc6yKKMpcxiiFxp6",
-          "message_id": "LoPsJaMcPBuFNjg1",
-          "filename": "Invoice_room_service__Plaza_Hotel.pdf",
-          "file_url": "https://assets.protocol.chat/attachments/Invoice_room_service__Plaza_Hotel.pdf",
-          "file_type": "application/pdf",
-          "file_size": 21352,
-          "created_at": 692233200
-        },
-        {
-          "id": "hSIhXBhNe8X1d8Et"
-          // ...
-        }
-      ]
-    }
-    ```
+- ###  master_hd_key(&mut self, master_hd_key: HDKey) -> &mut Self 
+	 -	 Allows specification of the master HD key for the wallet
 
-  </Col>
-</Row>
+- ###  address_format(&mut self, address_format: EthereumFormat) -> &mut Self 
+	 -	 Allows specification of the address format for the wallet
 
----
+- ###  mnemonic_seed(&mut self, mnemonic_seed: Seed) -> &mut Self 
+	 -	 Allows specification of the mnemonic seed for the wallet
 
-## Create an attachment {{ tag: 'POST', label: '/v1/attachments' }}
+- ###  network_type(&mut self, network_type: HDNetworkType) -> &mut Self 
+	 -	 Allows specification of the network type for the wallet, the default is HDNetworkType::MainNet
 
-<Row>
-  <Col>
+## EthereumPrivateKey(SecretKey);
+	 Represents a private key for an Ethereum wallet, wraps a SecretKey from the secp256k1 crate
+- ###  to_bytes(&self) -> [u8; 32] 
+	 -	 Represent the private key as a byte array
+- ###  from_slice(bytes: &[u8]) -\> Result\<Self, Error\> 
+	 -	 Instantiate the private key from a slice of bytes, errors if given invalid bytes
 
-    This endpoint allows you to upload a new attachment to a conversation. See the code examples for how to send the file to the Protocol API.
+## EthereumPublicKey(PublicKey);
+	 Represents an EthereumPublicKey, wraps a PublicKey from the secp256k1 crate
 
-    ### Required attributes
+- ###  to_bytes(&self) -> [u8; 33] 
+	 -	 Converts the public key to a byte array
 
-    <Properties>
-      <Property name="file" type="string">
-        The file you want to add as an attachment.
-      </Property>
-    </Properties>
+- ###  from_slice(bytes: &[u8]) -\> Result\<Self, Error\> 
+	 -	 Constructs the public key from a slice of bytes, returns an [error][Error] if given invalid bytes
 
-  </Col>
-  <Col sticky>
+- ###  to_public_address(&self, address_format: EthereumFormat) -\> Result\<String, Error\> 
+	 -	 Returns the public address of the public key in the specified format
 
-    <CodeGroup title="Request" tag="POST" label="/v1/attachments">
+## EthereumFormat
+	 Represents the format of an Ethereum address (checksummed or non-checksummed)
 
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/attachments \
-      -H "Authorization: Bearer {token}" \
-      -F file="../Invoice_room_service__Plaza_Hotel.pdf"
-    ```
+- ### NonChecksummed
+	 NonChecksummed is the non-checksummed format of an Ethereum address where the letters are all lowercase
 
-    ```js
-    import ApiClient from '@example/protocol-api'
+- ### Checksummed
+	 Checksummed is the checksummed format of an Ethereum address where the case of each letter is mixed using the checksum algorithm
 
-    const client = new ApiClient(token)
 
-    await client.attachments.create({ file })
-    ```
+## EthereumAmount
+	 Contains a field representing the amount of wei in the amount. Also has functions to convert to and from the main unit (ETH) and the smallest unit (wei).
 
-    ```python
-    from protocol_api import ApiClient
+- ###  from_eth(eth_amount: f64) -> Self 
+	 -	 The number of wei (U256) in the amount
+	 Creates a new EthereumAmount from a decimal value in ETH
 
-    client = ApiClient(token)
+- ###  eth(&self) -> f64 
+	 -	 Creates a new EthereumAmount from a decimal value in ETH
 
-    client.attachments.create(file=file)
-    ```
+- ###  wei(&self) -> U256 
+	 -	 Returns the number of wei in the amount
 
-    ```php
-    $client = new \Protocol\ApiClient($token);
+- ###  from_wei(wei_amount: U256) -> Self 
+	 -	 Creates a new EthereumAmount from the wei amount
 
-    $client->attachments->create([
-      'file' => $file,
-    ]);
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "Nc6yKKMpcxiiFxp6",
-      "message_id": "LoPsJaMcPBuFNjg1",
-      "filename": "Invoice_room_service__Plaza_Hotel.pdf",
-      "file_url": "https://assets.protocol.chat/attachments/Invoice_room_service__Plaza_Hotel.pdf",
-      "file_type": "application/pdf",
-      "file_size": 21352,
-      "created_at": 692233200
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Retrieve an attachment {{ tag: 'GET', label: '/v1/attachments/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to retrieve an attachment by providing the attachment id. Refer to [the list](#the-attachment-model) at the top of this page to see which properties are included with attachment objects.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="GET" label="/v1/attachments/Nc6yKKMpcxiiFxp6">
-
-    ```bash {{ title: 'cURL' }}
-    curl https://api.protocol.chat/v1/attachments/Nc6yKKMpcxiiFxp6 \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.attachments.get('Nc6yKKMpcxiiFxp6')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.attachments.get("Nc6yKKMpcxiiFxp6")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->attachments->get('Nc6yKKMpcxiiFxp6');
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "Nc6yKKMpcxiiFxp6",
-      "message_id": "LoPsJaMcPBuFNjg1",
-      "filename": "Invoice_room_service__Plaza_Hotel.pdf",
-      "file_url": "https://assets.protocol.chat/attachments/Invoice_room_service__Plaza_Hotel.pdf",
-      "file_type": "application/pdf",
-      "file_size": 21352,
-      "created_at": 692233200
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Update an attachment {{ tag: 'PUT', label: '/v1/attachments/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to perform an update on an attachment. Currently, the only supported type of update is changing the filename.
-
-    ### Optional attributes
-
-    <Properties>
-      <Property name="filename" type="string">
-        The new filename for the attachment.
-      </Property>
-    </Properties>
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="PUT" label="/v1/attachments/Nc6yKKMpcxiiFxp6">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X PUT https://api.protocol.chat/v1/attachments/Nc6yKKMpcxiiFxp6 \
-      -H "Authorization: Bearer {token}" \
-      -d filename="Invoice_room_service__Plaza_Hotel_updated.pdf"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.attachments.update('Nc6yKKMpcxiiFxp6', {
-      filename: 'Invoice_room_service__Plaza_Hotel_updated.pdf',
-    })
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.attachments.update("Nc6yKKMpcxiiFxp6", filename="Invoice_room_service__Plaza_Hotel_updated.pdf")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->attachments->update('Nc6yKKMpcxiiFxp6', [
-      'filename' => 'Invoice_room_service__Plaza_Hotel_updated.pdf',
-    ]);
-    ```
-
-    </CodeGroup>
-
-    ```json {{ title: 'Response' }}
-    {
-      "id": "Nc6yKKMpcxiiFxp6",
-      "message_id": "LoPsJaMcPBuFNjg1",
-      "filename": "Invoice_room_service__Plaza_Hotel.pdf",
-      "file_url": "https://assets.protocol.chat/attachments/Invoice_room_service__Plaza_Hotel_updated.pdf",
-      "file_type": "application/pdf",
-      "file_size": 21352,
-      "created_at": 692233200
-    }
-    ```
-
-  </Col>
-</Row>
-
----
-
-## Delete an attachment {{ tag: 'DELETE', label: '/v1/attachments/:id' }}
-
-<Row>
-  <Col>
-
-    This endpoint allows you to delete attachments. Note: This will permanently delete the file.
-
-  </Col>
-  <Col sticky>
-
-    <CodeGroup title="Request" tag="DELETE" label="/v1/attachments/Nc6yKKMpcxiiFxp6">
-
-    ```bash {{ title: 'cURL' }}
-    curl -X DELETE https://api.protocol.chat/v1/attachments/Nc6yKKMpcxiiFxp6 \
-      -H "Authorization: Bearer {token}"
-    ```
-
-    ```js
-    import ApiClient from '@example/protocol-api'
-
-    const client = new ApiClient(token)
-
-    await client.attachments.delete('Nc6yKKMpcxiiFxp6')
-    ```
-
-    ```python
-    from protocol_api import ApiClient
-
-    client = ApiClient(token)
-
-    client.attachments.delete("Nc6yKKMpcxiiFxp6")
-    ```
-
-    ```php
-    $client = new \Protocol\ApiClient($token);
-
-    $client->attachments->delete('Nc6yKKMpcxiiFxp6');
-    ```
-
-    </CodeGroup>
-
-  </Col>
-</Row>

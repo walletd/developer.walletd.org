@@ -5,44 +5,46 @@ import { Heading } from '@/components/Heading'
 
 const libraries = [
   {
-    href: 'https://crates.io',
+    href: 'https://docs.rs/walletd/0.1.0/walletd/',
     name: 'walletd',
     description:
-      'A popular general-purpose scripting language that is especially suited to web development.',
+      'Main walletD crate that encompasses the functionality of all of the other supporting walletD crates. Facilitates the creation and use of non-custodial multi-currency wallets.',
   },
   {
-    href: '#',
+    href: 'https://docs.rs/walletd_bitcoin/0.1.0/walletd_bitcoin/',
     name: 'walletd_bitcoin',
     description:
-      'A dynamic, open source programming language with a focus on simplicity and productivity.',
+      'This library provides a wallet implementation for Bitcoin including the ability create a new wallet or import an existing wallet, check balances, and handle transactions. \
+      It supports a heirarchical deterministic (HD) wallet structure and provides the ability to search for previously used addresses associated with the wallet as well as the creation of new addresses. \
+      It also facilitates obtaining blockchain information.',
   },
   {
-    href: '#',
+    href: 'https://docs.rs/walletd_coin_core/0.1.0/walletd_coin_core/',
     name: 'walletd_coin_core',
     description:
       'Node.js® is an open-source, cross-platform JavaScript runtime environment.',
   },
   {
-    href: '#',
+    href: 'https://docs.rs/walletd_mnemonics_core/0.1.0/walletd_mnemonics_core/',
     name: 'walletd_mnemonics_core',
     description:
       'Python is a programming language that lets you work quickly and integrate systems more effectively.',
   },
   {
-    href: '#',
+    href: 'https://docs.rs/walletd_ethereum/0.1.0/walletd_ethereum/',
     name: 'walletd_ethereum',
     description:
       'An open-source programming language supported by Google with built-in concurrency.',
   },
 
   {
-    href: '#',
+    href: 'https://docs.rs/walletd_hd_key/0.1.0/walletd_hd_key/',
     name: 'walletd_hd_key',
     description:
       'An open-source programming language supported by Google with built-in concurrency.',
   },
   {
-    href: '#',
+    href: 'https://docs.rs/walletd_bip39/0.1.0/walletd_bip39/',
     name: 'walletd_bip39',
     description:
       'An open-source programming language supported by Google with built-in concurrency.',
