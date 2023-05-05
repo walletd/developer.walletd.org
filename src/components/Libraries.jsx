@@ -8,7 +8,7 @@ const libraries = [
     href: 'https://docs.rs/walletd/0.1.0/walletd/',
     name: 'walletd',
     description:
-      'Main walletD crate that encompasses the functionality of all of the other supporting walletD crates. Facilitates the creation and use of non-custodial multi-currency wallets.',
+      'Main WalletD crate that encompasses the functionality of all of the other supporting WalletD crates. Facilitates the creation and use of non-custodial multi-currency wallets.',
   },
   {
     href: 'https://docs.rs/walletd_bitcoin/0.1.0/walletd_bitcoin/',
