@@ -21,13 +21,22 @@ let master_hd_key = HDKey::new_master(master_seed, network_type)?;
 let mut btc_wallet = BitcoinWallet::builder().master_hd_key(master_hd_key).build()?;
 ```
 
-
 <div className="not-prose">
   <Button
     href="/mnemonics_guide"
     variant="text"
     arrow="right"
     children="Check out our mnemonics guide for more info on the mnemonic seed"
+  />
+</div>
+
+
+<div className="not-prose">
+  <Button
+    href="/hd_key"
+    variant="text"
+    arrow="right"
+    children="Check out our HD Key guide for more info on the HD key"
   />
 </div>
 
