@@ -185,49 +185,26 @@ function NavigationGroup({ group, className }) {
 
 export const navigation = [
   {
-    title: 'Introduction',
+    title: 'Guides',
     links: [
-      { title: 'Overview', href: '/' },
-      { title: 'Quickstart', href: '/quickstart' }
+      { title: 'Introduction', href: '/' },
+      { title: 'Quickstart', href: '/quickstart' },
+      { title: 'Mnemonics', href: '/mnemonics_guide' },
+      { title: 'HD Key', href: '/hd_key_guide' },
+      { title: 'Bitcoin Wallet', href: '/bitcoin_wallet' },
+      { title: 'Ethereum Wallet', href: '/ethereum_wallet' },
+      { title: 'WalletD', href: '/walletd_guide' }
     ],
   },
   {
-    title: 'API Reference',
+    title: 'Resources',
     links: [
-      { title: 'Mnemonics API', href: '/mnemonics' },
-      { title: 'Blockchain Connector API', href: '/blockchains' },
-      { title: 'Wallet / Account API', 
-        href: '/wallets',
-        links: [
-          { title: 'Quickstart', href: '/quickstart' }
-        ] 
-      },
-      // { title: 'Key Management', href: '/key-management' },
+      { title: 'Mnemonics', href: '/mnemonics' },
+      { title: 'HD Key', href: '/hd_key' },
+      { title: 'Bitcoin', href: '/bitcoin' },
+      { title: 'Ethereum', href: '/ethereum' },
+      { title: 'WalletD KeyPair', href: '/walletd_keypair' },
     ],
-  },
-  {
-    title: 'Advanced', 
-    links: [
-      { title: 'Building from source', href: '/build' },
-    ],
-  },
-  {
-    title: 'Issues', 
-    links: [
-      { title: 'Reporting issues', href: '/issues' },
-    ],
-  },
-  {
-    title: 'Contributing',
-    links: [
-      { title: 'How to contribute', href: '/' },
-    ]
-
-    // title: 'Releases',
-    // links: [
-    //   { title: 'Release Cycle', href: '/releases' },
-    //   { title: 'Change Logs', href: '/' }
-    // ]
   },
 ]
 

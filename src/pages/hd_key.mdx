@@ -1,0 +1,401 @@
+export const description =
+  'In this guide, we will look at how to work with Hierarchical Deterministic (HD) keys.'
+
+# HD Key
+
+WalletD features [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) compliant HD keys
+to facilitate Hierarchical Deterministic (HD) wallets. 
+This resource provides documentation related to HD keys in walletD. {{ className: 'lead' }}
+
+<div className="not-prose">
+  <Button
+    href="/hd_key_guide"
+    variant="text"
+    arrow="right"
+    children="Check out our guide to using HD keys in walletD for examples"
+  />
+</div>
+
+## `HDKey` Struct
+	 Represents a master or a derived child HD (Hierarchical Deterministic) key.
+	
+	 The `HDKey` struct contains detailed information about a master node or derived child node HD key and provides methods to create and derive HD keys.
+	
+	 `HDKey` follows the [BIP32 scheme](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki)
+	 `HDKey` also follows the purpose scheme described in [BIP43](https://github.com/bitcoin/bips/blob/master/bip-0043.mediawiki)
+	 The `HDPurpose` enum supports the following purpose types: BIP32, BIP44,
+	 BIP49, and BIP84.
+
+### `HDKey` Struct Methods
+- `new_master(seed: Seed, network_type: HDNetworkType) -> Result\<Self, Error\>` 
+	 -	 Create new master node for a HD wallet based on a seed
+	
+	 Follows the method described in [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) to convert the seed to the master node extended private and public keys
+	 Multiple purpose types can be derived from the master node using the
+	 ``HDPurpose`` type
+	
+	 If this function encounters an error, it will return an ``Error`` type.
+	 this can happen if the seed is invalid or an error is encountered when
+	 specifying the extended private key and extended public key
+
+- `new() -\> Result\<Self, Error\>` 
+	 -	 Returns a new ``HDKey`` from a seed (``Seed``), network type
+	 (``HDNetworkType``) and derivation path string.
+	
+	 The HDKey returned will be the child key derived from the master node
+	 specified from the seed using the derivation path.
+	
+	 Returns an ``Error`` with further details if the seed is invalid or the
+	 derivation path is invalid
+
+- `derive(&self, derivation_path: String) -> Result\<Self, Error\>` 
+	 -	 Derives and returns a ``HDKey`` following the specified derivation path
+	 from the ``HDKey`` given as the self parameter as the parent key.
+
+- `to_wif(&self) -> Result\<String, Error\>` 
+	 -	 Convert the ``ExtendedPrivateKey`` associated with the ``HDKey`` to a
+	 Wallet Import Format (WIF). [Using wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format)
+	 Returns an ``Error`` if the extended private key is missing or another
+	 error is encountered.
+
+- `extended_private_key(&self) -> Result\<ExtendedPrivateKey, Error\>`
+	 -	 Returns the extended private key
+	
+	 Returns an `error` if the extended private key is missing
+
+- `extended_public_key(&self) -> Result\<ExtendedPublicKey, Error\>` 
+	 -	 Returns the extended public key
+	
+	 Returns an `error` if the extended public key is missing
+
+- `master_seed(&self) -> Seed` 
+	 -	 Returns the master seed
+
+- `derivation_path(&self) -> `HDPath` 
+	 -	 Returns the derivation path
+
+- `chain_code(&self) -> [u8; 32]` 
+	 -	 Returns the chain code
+
+- `depth(&self) -> u8` 
+	 -	 Returns the depth
+
+- `parent_fingerprint(&self) -> [u8; 4]` 
+	 -	 Returns the parent fingerprint
+
+- `child_index(&self) -> u32` 
+	 -	 Returns the child index
+
+- `network(&self) -> HDNetworkType` 
+	 -	 Returns the network associated with the HD Key
+
+- `extended_private_key_serialized(&self) -> Result\<String, Error\>` 
+	 -	 Extended Private Key Serialization
+
+- `extended_public_key_serialized(&self) -> Result\<String, Error\>` 
+	 -	 Extended Public Key Serialization
+
+- `private_key_prefix(&self) -> Result\<[u8; 4], Error\>` 
+	 -	 Returns the private key prefix
+
+- `public_key_prefix(&self) -> Result\<[u8; 4], Error\>` 
+	 -	 Returns the public key prefix
+
+## `HDPurpose` Enum
+  - Represents the different derivation path schemes currently supported by the
+	 `walletd_hd_key` library.
+	
+	 - ``BIP32`` is the default derivation scheme which uses a purpose value of 0'
+	 - ``BIP44`` uses 44': [BIP44 reference](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki)
+	 - ``BIP49`` uses 49': [BIP49 reference](https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki)
+	 - ``BIP84`` uses 84': [BIP84 reference](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki)
+	 
+	 The ``HDPathBuilder`` struct can be used to set a default purpose value to
+	 use with particular cryptocurrency implementation.
+
+### `HDPurpose` Variants
+
+- `BIP44` 
+- `BIP49`
+- `BIP84`
+- `BIP32`
+
+### `HDPurpose` Enum Methods
+
+- `to_shortform_num(&self) -> u32` 
+	 -	 Returns the purpose value as a u32 shortform index value (this is the
+	 value used in the derivation path string)
+
+- `to_full_num(&self) -> u32` 
+	 -	 Returns the purpose value as a full u32 num (this is the value used in
+	 the calculation)
+
+- `default_path_specify() -> String` 
+	 -	 Returns a string specifying the derivation path, given the shortform
+	 index values for the coin_id, account, change and address index.
+	 This function uses a hardened index for the purpose, coin id and account
+	 and a non-hardened index for the change and address index.
+
+
+## `HDPathIndex` Enum
+	 Represents the variants of different derivation path
+	 components.
+	
+	 The ``HDPath`` struct contains a vector of these values.
+
+### `HDPathIndex` Variants
+
+- `Master`
+	 Master index is the root of the derivation tree, it is represented as m
+	 in the string path
+
+- `IndexHardened(u32)`
+	 IndexHardened is a hardened index, it is represented as a number
+	 followed by ' in the string path The number is the short form value,
+	 the full index value is the short form value + 2^31
+
+- `IndexNotHardened(u32)`
+	 IndexNotHardened is a non-hardened index, it is represented as a number
+	 in the string path The number is the short form value, the full
+	 index value is the same short form value when the index is not hardened
+
+### `HDPathIndex` Enum Methods
+
+- `hardened_full_num(num: u32) -> u32` 
+	 -	 Convert to the full number used to represent a hardend index from the
+	 shortform number used in the derivation path string accompanied by '
+	 to indicate hardened
+
+- `hardened_shortform_num(full_num: u32) -> u32` 
+	 -	 Convert from the full number used represent a hardened index to the
+	 shortform number which when accompanied by ' indicates a hardened
+	 index
+
+- `to_shortform_num(&self) -> u32` 
+	 -	 Returns the short form value of index.
+	 For master type always returns 0,
+	 for hardened index returns the short form value without the hardened
+	 indicator, the value here for hardened index is not the same as the full
+	 index number which is used in the calculation but rather the short form
+	 value used in the derivation string when accompanied by the ' indicator
+	 For non-hardened index returns the the shortform number and full number
+	 are the same.
+
+- `to_full_num(&self) -> u32` 
+	 -	 Returns the full index value, for non-hardened index this is the same as
+	 the short form value, for hardened index this is the full index
+	 value used in the calculation
+
+- `new_master() -> HDPathIndex` 
+	 -	 Creates a master HDPathIndex
+
+- `new_index(num: u32, hardened: bool) -> HDPathIndex` 
+	 -	 Creates a new index (not master) from the short form index and a boolean
+	 which indicates if the index is hardened or not
+
+## `HDPath` Struct
+	 Contains a vector of `HDPathIndex` to represent a derivation
+	 path for a `HDKey`(crate::HDKey) and relevant helper functions.
+
+### `HDPath` Struct Methods
+
+- `new(path: &str) -> Result\<Self, Error\>` 
+	 -	 Creates a new ``HDPath`` from a string representation of the path.
+
+- `push(&mut self, index: HDPathIndex)` 
+	 -	 Pushes a new ``HDPathIndex`` to the path
+
+- `len(&self) -> usize` 
+	 -	 Returns the length of the path
+
+- `is_empty(&self) -> bool` 
+	 -	 Returns true if the path is empty, false otherwise
+
+- `derive_path_str_to_list(deriv_path: &str) -> Result\<Vec\<String\>, Error\>` 
+	 -	 Helper function to convert a derivation path string to a list of strings
+	 Returns ``Error`` if the path is empty or does not start with "m"
+
+- `to_vec(&self) -> Vec\<HDPathIndex\>` 
+	 -	 Returns the underlying vector of ``HDPathIndex``
+
+- `derive_path_str_to_info(deriv_path: &str) -> Result\<Vec\<HDPathIndex>, Error\>` 
+	 -	 Helper function to convert a derivation path string to a vector of
+	 ``HDPathIndex``
+	 Returns an ``Error`` variant if the derivation path string is invalid
+
+- `builder() -> HDPathBuilder` 
+	 -	 Returns the builder for the HDPath (HDPathBuilder)
+
+- `at(&self, index: usize) -> Result\<HDPathIndex, Error\>` 
+	 -	 Returns the HDPathIndex object at the specified position (index) in the
+	 path if it exists, otherwise returns an `error`
+
+- `purpose(&self) -> Result\<HDPurpose, Error\>` 
+	 -	 Returns the HDPurpose value related to the purpose attribute, if it
+	 exists in the HDPath
+	
+	 Returns an error ``Error::IndexOutOfRange`` if the index 1 is not valid
+	 for the HDPath object
+
+- `coin_type(&self) -> Result\<HDPathIndex, Error\>` 
+	 -	 Returns the HDPathIndex value related to the coin_type attribute, if it
+	 exists in the HDPath
+	
+	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
+	 the HDPath object
+
+- `account(&self) -> Result\<HDPathIndex, Error\>` 
+	 -	 Returns the HDPathIndex value related to the account attribute, if it
+	 exists in the HDPath
+	
+	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
+	 the HDPath object
+
+- `change(&self) -> Result\<HDPathIndex, Error\>` 
+	 -	 Returns the HDPathIndex value related to the change attribute, if it
+	 exists in the HDPath
+	
+	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
+	 the HDPath object
+
+- `address(&self) -> Result\<HDPathIndex, Error\>` 
+	 -	 Returns the HDPathIndex value related to the address attribute, if it
+	 exists in the HDPath
+	
+	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
+	 the HDPath object
+
+
+## `HDPathBuilder` Struct
+	 A builder for the `HDPath` struct, it allows specification
+	 of the standard full path and also which components are hardened. The default
+	 implementation uses the standard format for the full path.
+
+### `HDPathBuilder` Struct Methods
+
+- `new() -> Self` 
+	 -	 Creates a new HDPathBuilder with default values
+
+- `purpose_index(&mut self, purpose: u32) -> &mut Self` 
+	 -	 Specify the purpose index shortform number value
+
+- `hardened_purpose(&mut self) -> &mut Self` 
+	 -	 Specify that the purpose index should be hardened
+
+- `non_hardened_purpose(&mut self) -> &mut Self` 
+	 -	 Specify that the purpose index should not be hardened
+
+- `coin_type_index(&mut self, coin_type: u32) -> &mut Self` 
+	 -	 Specify the coin_type index shortform number value
+
+- `hardened_coin_type(&mut self) -> &mut Self` 
+	 -	 Specify that the coin type index should be hardened
+
+- `non_hardened_coin_type(&mut self) -> &mut Self` 
+	 -	 Specify that the coin type index should not be hardened
+
+- `account_index(&mut self, account: u32) -> &mut Self` 
+	 -	 Specify the account index shortform number value
+
+- `hardened_account(&mut self) -> &mut Self` 
+	 -	 Specify that the account index should be hardened
+
+- `non_hardened_account(&mut self) -> &mut Self` 
+	 -	 Specify that the account index should not be hardened
+
+- `change_index(&mut self, change: u32) -> &mut Self` 
+	 -	 Specify the change index shortform number value
+
+- `hardened_change(&mut self) -> &mut Self` 
+	 -	 Specify that the change index should be hardened
+
+- `non_hardened_change(&mut self) -> &mut Self` 
+	 -	 Specify that the change index should not be hardened
+
+- `address_index(&mut self, address_index: u32) -> &mut Self` 
+	 -	 Specify the address_index index shortform number value
+
+- `hardened_address(&mut self) -> &mut Self` 
+	 -	 Specify that the address index should be hardened
+
+- `non_hardened_address(&mut self) -> &mut Self` 
+	 -	 Specify that the address index should not be hardened
+
+- `no_purpose_index(&mut self) -> &mut Self` 
+	 -	 Set the purpose index to None
+
+- `no_coin_type_index(&mut self) -> &mut Self` 
+	 -	 Set the coin_type index to None
+
+- `no_account_index(&mut self) -> &mut Self` 
+	 -	 Set the account index to None
+
+- `no_change_index(&mut self) -> &mut Self` 
+	 -	 Set the change index to None
+
+- `no_address_index(&mut self) -> &mut Self` 
+	 -	 Set the address_index index to None
+
+- `build(&mut self) -> HDPath` 
+	 -	 Build the `HDPath`
+	 The `HDPath` will be built from the values specified in the builder
+	 The `HDPath` always starts with the Master index (m)
+	 The `HDPath` will go in order from purpose, coin_type, account, change,
+	 address_index
+	
+	 If the purpose is not set, the HDPath will return the HDPath with the
+	 Master index only If the coin_type is not set, the HDPath will
+	 return the HDPath with the Master and purpose index It will use the
+	 defaults for the account, change, and address_index unless if something
+	 else has been specified on the builder using the with or set functions.
+	 So in order to build a full HDPath going up to the address index, the
+	 purpose and coin_type must be set.
+
+## `HDNetworkType` Enum
+	 Represents the different network types relevant to `HDKey`.
+	
+	 ``MainNet`` is the default which is used for the production network.
+	 ``TestNet`` is used for any development or test network.
+	
+	 A `HDNetworkType` can be used to map to a more blockchain-specific network type when used with a specific cryptocurrency.
+
+## `HDNetworkType` Variants
+- `TestNet`
+	- TestNet used for any development or test network
+
+- `MainNet`
+	- MainNet used for the production network
+
+## `ExtendedPrivateKey` Struct
+	 A wrapper around the `secp256k1::SecretKey`
+	 struct to be used with `HDKey`.
+
+### `ExtendedPrivateKey` Struct Methods
+
+- `from_slice(data: &[u8]) -> Result<ExtendedPrivateKey, Error>` 
+	 -	 Creates a new `ExtendedPrivateKey` from a slice of bytes.
+
+- `to_bytes(&self) -> [u8; 32]` 
+	 -	 Returns the bytes of the `ExtendedPrivateKey`.
+
+- `to_public_key(&self) -> ExtendedPublicKey` 
+	 -	 Converts the `ExtendedPrivateKey` to an `ExtendedPublicKey`.
+
+- `add_tweak(mut self, tweak: &secp256k1::Scalar) -> Result\<Self, Error\>` 
+	 -	 Adds a tweak to the underlying private key.
+
+## `ExtendedPublicKey` Struct
+	 A wrapper around the `secp256k1::PublicKey`
+	 struct to be used with `HDKey`
+	 
+### `ExtendedPublicKey` Struct Methods 
+- `from_slice(slice: &[u8]) -> Result\<Self, Error\>	 
+	 -	 Creates a new `ExtendedPublicKey` from a slice of bytes.
+
+- `from_private_key(private_key: &ExtendedPrivateKey) -> Self`	 
+	 -	 Creates a new `ExtendedPublicKey` from an `ExtendedPrivateKey`.
+
+- `to_bytes(&self) -> [u8; 33]` 
+	 -	 Converts the `ExtendedPublicKey` a byte array.
+
+

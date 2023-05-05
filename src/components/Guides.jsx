@@ -3,26 +3,32 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
-    href: '/authentication',
-    name: 'Authentication',
-    description: 'Learn how to authenticate your API requests.',
+    href: '/mnemonics',
+    name: 'Mnemonics',
+    description: 'Learn how to use mnemonics in walletD.',
   },
   {
-    href: '/pagination',
-    name: 'Pagination',
-    description: 'Understand how to work with paginated responses.',
+    href: '/hd_key',
+    name: 'HD Key',
+    description: 'Understand how a hierarchical deterministic key works, and how to use it in walletD.',
   },
   {
-    href: '/errors',
-    name: 'Errors',
+    href: '/bitcoin_wallet',
+    name: 'Bitcoin Wallet',
     description:
-      'Read about the different types of errors returned by the API.',
+      'Learn how to use walletD to implement a Bitcoin wallet.',
   },
   {
-    href: '/webhooks',
-    name: 'Webhooks',
+    href: '/ethereum_wallet',
+    name: 'Ethereum Wallet',
     description:
-      'Learn how to programmatically configure webhooks for your app.',
+      'Learn how to use walletD to implement an Ethereum wallet.',
+  },
+  {
+    href: '/walletd_guide',
+    name: 'WalletD Overview',
+    description:
+      'Learn how to use walletD at high level.',
   },
 ]
 

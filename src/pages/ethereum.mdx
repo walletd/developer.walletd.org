@@ -1,0 +1,93 @@
+export const description =
+  'On this page, we’ll dive into the features related to Ethereum that walletD currently provides.'
+
+# Ethereum
+
+
+WalletD features the ability to create and work with Ethereum wallets. This resource provides documentation related to Ethereum in walletD. {{ className: 'lead' }}
+
+<div className="not-prose">
+  <Button
+    href="/ethereum_wallet"
+    variant="text"
+    arrow="right"
+    children="Check out our guide on Ethereum wallets in walletD for examples"
+  />
+</div>
+
+
+## `EthereumPrivateKey` Struct
+	 Represents a private key for an Ethereum wallet, wraps a `SecretKey` from the secp256k1 crate
+
+### `EthereumPrivateKey` Struct Methods
+
+- `to_bytes(&self) -> [u8; 32]` 
+	 -	 Represent the private key as a byte array
+
+- `from_slice(bytes: &[u8]) -> Result<Self, Error>` 
+	 -	 Instantiate the private key from a slice of bytes, errors if given invalid bytes
+
+## `EthereumPublicKey` Struct
+	 Represents an EthereumPublicKey, wraps a `PublicKey` from the secp256k1 crate
+
+### `EthereumPublicKey` Struct Methods
+
+- `to_bytes(&self) -> [u8; 33]` 
+	 -	 Converts the public key to a byte array
+
+- `from_slice(bytes: &[u8]) -> Result<Self, Error>` 
+	 -	 Constructs the public key from a slice of bytes, returns an `error` if given invalid bytes
+
+- `to_public_address(&self, address_format: EthereumFormat) -> Result<String, Error>` 
+	 -	 Returns the public address of the public key in the specified format
+
+## `EthereumWalletBuilder` Struct
+	 Builder for `EthereumWallet`, allows for specification of options for the ethereum wallet
+
+### `EthereumWalletBuilder` Struct Methods
+
+- `default() -> Self` 
+	 -	 Specifies the default options for the EthereumWalletBuilder
+	 The default address format is EthereumFormat::Checksummed
+	 The default network type is HDNetworkType::MainNet
+	 The default HDPathBuilder is `m/44'/60'/0'/0/0`
+	 By default neither the master HD key nor the mnemonic seed are specified
+
+- `master_hd_key(&mut self, master_hd_key: HDKey) -> &mut Self` 
+	 -	 Allows specification of the master HD key for the wallet
+
+- `address_format(&mut self, address_format: EthereumFormat) -> &mut Self` 
+	 -	 Allows specification of the address format for the wallet
+
+- `mnemonic_seed(&mut self, mnemonic_seed: Seed) -> &mut Self` 
+	 -	 Allows specification of the mnemonic seed for the wallet
+
+- `network_type(&mut self, network_type: HDNetworkType) -> &mut Self` 
+	 -	 Allows specification of the network type for the wallet, the default is HDNetworkType::MainNet
+
+## `EthereumWallet` Struct
+	 Contains the information needed to interact with an Ethereum wallet with a single public address associated with it.
+
+### `EthereumWallet` Struct Methods
+
+- `address_format(&self) -> EthereumFormat` 
+	 -	 Returns the address format used by the wallet
+
+- `public_address(&self) -> String` 
+	 -	 Returns the public address of the wallet
+
+- `network(&self) -> HDNetworkType` 
+	 -	 Returns the network type used by the wallet
+
+- `public_key(&self) -> Result<EthereumPublicKey, Error>` 
+	 -	 Returns the public key of the wallet
+
+- `private_key(&self) -> Result<EthereumPrivateKey, Error>` 
+	 -	 Returns the private key of the wallet if it exists, otherwise returns an error
+
+- `master_hd_key(&self) -> Result<HDKey, Error>` 
+	 -	 Returns the master HD key of the wallet if it exists, otherwise returns an error
+
+- `derived_hd_key(&self) -> Result<HDKey, Error>` 
+	 -	 Returns the derived HD key of the wallet if it exists, otherwise returns an error
+
