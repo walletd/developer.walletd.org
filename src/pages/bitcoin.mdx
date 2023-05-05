@@ -15,7 +15,7 @@ WalletD features the ability to create and work with Bitcoin wallets. This resou
 </div>
 
 ## `BitcoinWallet` Struct
-	 Represents a Hierarchical Deterministic (HD) Bitcoin wallet which can have multiple `BitcoinAddress` structs associated with it which are derived from a single master `HD key`.
+	Represents a Hierarchical Deterministic (HD) Bitcoin wallet which can have multiple `BitcoinAddress` structs associated with it which are derived from a single master `HD key`.
 
 ### `BitcoinWallet` Struct Methods
 
@@ -100,6 +100,29 @@ WalletD features the ability to create and work with Bitcoin wallets. This resou
 - `prepare_transaction() -> Result<(BTransaction, Vec<usize>), Error>` 
 	 -	 Prepares a transaction to be signed and broadcasted.
 
+***`BitcoinWallet`'s Implementation of the `CryptoWallet` Trait***
+	
+- `set_blockchain_client(&mut self, client: Self::BlockchainClient)`
+	-	Associates a particular blockchain client with the CryptoWallet
+
+- `blockchain_client(&self) -> Result<&Self::BlockchainClient, Self::ErrorType>`
+	- 	Returns the blockchain client that is associated with the CryptoWallet if it exists, otherwise returns an error
+    
+- `balance(&self) -> Result<Self::CryptoAmount, Self::ErrorType>`
+	- 	Returns the balance of the CryptoWallet as a CryptoAmount
+    
+- `transfer(&self, send_amount: &Self::CryptoAmount, public_address: &str) -> Result<String, Self::ErrorType>`
+	- Sends a transaction from the CryptoWallet to a given public address with a given amount
+    
+- `sync(&mut self) -> Result<(), Self::ErrorType>`
+	- Syncs the CryptoWallet with the blockchain
+    
+- `receive_address(&self) -> Result<String, Self::ErrorType>`
+	- Returns the receive address of the CryptoWallet, this is the address that is used to receive transactions
+    
+- `builder() -> Self::WalletBuilder`
+    - Returns a builder for the CryptoWallet that can be used to build a CryptoWallet with custom options
+
 ## `BitcoinWalletBuilder` Struct
 	 Builder for `BitcoinWallet` that allows for the creation of a `BitcoinWallet` with a custom configuration
 
@@ -120,8 +143,30 @@ WalletD features the ability to create and work with Bitcoin wallets. This resou
 - `coin_type_id(&self) -> Result<u32, Error>` 
 	 -	 Returns the coin type id num based on the network
 
+***`BitcoinWalletBuilder`'s Implementation of the `CryptoWalletBuilder` Trait***
 
-## `BitcoinAmount` Struct
+- `new() -> Self`
+	- Constructs a new `CryptoWalletBuilder`
+
+- `build(&self) -> Result<T, T::ErrorType>`
+    - Builds a `CryptoWallet` from the `CryptoWalletBuilder`
+
+- `master_hd_key(&mut self, master_hd_key: HDKey) -> &mut Self`
+    - Specifies the master HD key (HDKey) for the CryptoWalletBuilder.
+    
+- `mnemonic_seed(&mut self, mnemonic_seed: Seed) -> &mut Self`
+	- Specifies the mnemonic seed (`Seed`) for the `CryptoWalletBuilder`.
+    
+- `address_format(&mut self, address_format: T::AddressFormat) -> &mut Self`
+    - Specifies the address format (CryptoWallet::AddressFormat) for the `CryptoWalletBuilder`.
+
+- `hd_path_builder(&mut self, hd_path_builder: HDPathBuilder) -> &mut Self`
+	- Specifies the HD path builder (`HDPathBuilder`) for the `CryptoWalletBuilder`.
+
+- `network_type(&mut self, network_type: T::NetworkType) -> &mut Self`
+	- Specifies the network type `CryptoWallet::NetworkType` for the `CryptoWalletBuilder`.
+    
+## `BitcoinAmount` Struct 
 	 Contains a field representing the amount of satoshis in the amount.
 	 Has functions to convert to and from the main unit (BTC) and the smallest unit (satoshi).
 
