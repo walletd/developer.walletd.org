@@ -24,36 +24,37 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 ## `Bip39Mnemonic` Struct  
    Represents a mnemonic which follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
 ### `Bip39Mnemonic` Struct Methods
-- ###  `new() -> Self` 
+- `new() -> Self` 
 	 -	 Generates a new mnemonic given the language, length of mnemonic, and
 	 optional passphrase
-- ###  `from_phrase() -\> Result\<Self, Error\>` 
+- `from_phrase() -\> Result\<Self, Error\>` 
 	 -	 Restores a mnemonic from a mnemonic phrase and optional passphrase,
 	 requires specifying the language
-- ###  `detect_language() -\> Result\<Self::Mnemonic, Self::ErrorType\> `
+- `detect_language() -\> Result\<Self::Mnemonic, Self::ErrorType\> `
 	 -	 Restores a mnemonic from a mnemonic phrase and optional passphrase,
 	 automatically detects the language
-- ###  `to_seed(&self) -> Seed` 
+- `to_seed(&self) -> Seed` 
 	 -	 Provides the Seed object
-- ###  `phrase(&self) -> String` 
+- `phrase(&self) -> String` 
 	 -	 Gets the phrase
-- ###  `language(&self) -> Bip39Language` 
+- `language(&self) -> Bip39Language` 
 	 -	 Gets the lang field data
-- ###  `mnemonic_type(&self) -> Bip39MnemonicType` 
+- `mnemonic_type(&self) -> Bip39MnemonicType` 
 	 -	 Gets the mnemonic_type data
-   
+
 ## `Bip39MnemonicType` Enum
  	 Represents the different number of words that can be used for a valid `Bip39Mnemonic`
-	
-- ### `Words12` 12 word mnemonic phrase
-- ### `Words15` 15 word mnemonic phrase
-- ### `Words18` 18 word mnemonic phrase
-- ### `Words21` 21 word mnemonic phrase
-- ### `Words24` 24 word mnemonic phrase
 
-### `Bip39MnemonicType` Enum Functions
+### `Bip39MnemonicType` Enum Variants
+- `Words12` 12 word mnemonic phrase
+- `Words15` 15 word mnemonic phrase
+- `Words18` 18 word mnemonic phrase
+- `Words21` 21 word mnemonic phrase
+- `Words24` 24 word mnemonic phrase
 
-- ### `from_word_count(size: usize) -\> Result\<Self, Error\>` 
+### `Bip39MnemonicType` Enum Methods
+
+- `from_word_count(size: usize) -\> Result\<Self, Error\>` 
 	 -	 The default mnemonic type is 12 words
 	 Creates the MnemonicType based on the word count
 	
@@ -61,14 +62,14 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	 return an `Error`
 	
 	
-- ###  `from_key_size(size: usize) -\> Result\<Self, Error\>` 
+- `from_key_size(size: usize) -\> Result\<Self, Error\>` 
 	 -	 Creates the MnemonicType based on the length of the key size in bits
 	
 	 Specifying a key size not provided for by the BIP39 standard will return
 	 an `Error`
 	
 	
-- ###  from_phrase(phrase: &str) -\> Result\<Self, Error\> 
+- `from_phrase(phrase: &str) -\> Result\<Self, Error\>` 
 	 -	 Get a Bip39MnemonicType for an existing mnemonic phrase
 	
 	 This can be used when you need information about a mnemonic phrase based
@@ -76,7 +77,7 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	 using `Bip39MnemonicType::entropy_bits`.
 	
 	
-- ###  entropy_bits(&self) -> usize 
+- `entropy_bits(&self) -> usize` 
 	 -	 Return the number of entropy bits
 
 ## `Bip39Language` Enum
@@ -91,34 +92,37 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	
 	 The wordlists for each language are taken from the [BIP39 repo](https://github.com/bitcoin/bips/tree/master/bip-0039)
 
-- ### `ChineseSimplified`
-- ### `ChineseTraditional`
-- ### `Czech`
-- ### `French`
-- ### `Italian`
-- ### `Japanese`
-- ### `Korean`
-- ### `Portuguese`
-- ### `Spanish`
-- ### `English`
-	 English is the default, this is the only officially supported language
+### `Bip39Language` Enum Variants
+
+- `ChineseSimplified`
+- `ChineseTraditional`
+- `Czech`
+- `French`
+- `Italian`
+- `Japanese`
+- `Korean`
+- `Portuguese`
+- `Spanish`
+- `English`
+  - English is the default language, this is the only officially supported language
 
 ## `WordList` Struct
 	 Represents a wordlist for a language for the Bip39 Mnemonic
 
-- ###  `new(language: Bip39Language) -> WordList` 
+### `WordList` Struct Methods
+- `new(language: Bip39Language) -> WordList` 
 	 -	 Creates a new WordList for a specifed language
 
-- ###  `get_index(&self, word: &str) -\> Result\<usize, Error\>` 
+- `get_index(&self, word: &str) -\> Result\<usize, Error\>` 
 	 -	 Gets the index of a word in a language's wordlist, returns error if word
 	 is not found in wordlist for a language
 
-- ###  `detect_language(phrase: Vec\<&str\>) -\> Result\<Bip39Language, Error\>` 
+- `detect_language(phrase: Vec\<&str\>) -\> Result\<Bip39Language, Error\>` 
 	 -	 If all words in the phrase are present in a language's wordlist, the
 	 language of the phrase is detected
 
-- ###  `language(&self) -> Bip39Language` 
+- `language(&self) -> Bip39Language` 
 	 -	 Returns the language of the WordList
 
-- ###  `inner(&self) -\> Vec\<&'static str\>` 
+- `inner(&self) -\> Vec\<&'static str\>` 
 	 -	 Returns the inner wordlist
