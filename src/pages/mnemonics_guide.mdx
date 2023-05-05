@@ -1,20 +1,22 @@
 export const description =
-  'On this page, we’ll dive into using mnemonics in walletD.'
+  'On this page, we’ll dive into using mnemonics in WalletD.'
 
 # WalletD Mnemonics {{ className: 'lead' }}
 ---
 
 # BIP39 Mnemonic
 
-A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for HD wallet mnemonic phrases. 
-In this section, we'll guide you on how to use walletD to access BIP39 mnemonics. {{ className: 'lead' }}
+You're probably familiar with how most cryptocurrencies provide you with a 12-25 word secret phrase in order to access your cryptocurrency. That is precisely what a BIP39 mnemonic is. 
+
+BIP39 Mnemonics follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for HD wallet mnemonic phrases. 
+In this section, we'll guide you on how to use WalletD to access BIP39 mnemonics. {{ className: 'lead' }}
 
  ## Make a Mnemonic
-
+ß
 Here's how you can create a new randomly generated BIP39 mnemonic using the default specifications:
 
 ```rust {{ title: 'Example generating a random BIP39 mnemonic with default settings' }}
-// Use this to import the functionality you'll need from walletD for this section of the guide
+// Use this to import the functionality you'll need from WalletD for this section of the guide
 use walletd::walletd_bip39::prelude::*;
 use walletd::walletd_bip39;
 

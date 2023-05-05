@@ -3,7 +3,7 @@ import { Resources } from '@/components/Resources'
 import { HeroPattern } from '@/components/HeroPattern'
 
 export const description =
-  'Learn everything there is to know about WalletD and integrate WalletD into your product.'
+  'WalletD developer documentation.'
 
 export const sections = [
   { title: 'Guides', id: 'guides' },
@@ -14,8 +14,17 @@ export const sections = [
 
 # WalletD API Documentation
 
-WalletD is an crypto library designed to make using and developing for different cryptocurrencies easy. 
-WalletD supports the handling of mnemonic phrases, hierarchical deterministic (HD) crypto wallets, connecting to decentralized blockchains, and instantiating/importing multi-crypto wallets to check balances and transact.  
+WalletD is a Rust-based cryptocurrency library designed to facilitate intuitively working with various cryptocurrencies. It implements functionality designed to allow developers to work with several cryptocurrencies in a standardised way.
+
+WalletD is a cryptocurrency wallet library that encapsulates Rust-based functionality for various cryptocurrencies and blockchains. It contains features for creating and importing wallets, checking balances, and sending and receiving transactions. It aims to provide a standard interface for interacting with significantly different cryptocurrencies and their blockchains.
+
+The vision behind WalletD is to simplify the development and implementation of multi-cryptocurrency non-custodial wallets by third parties.
+
+
+
+<Note>
+  ⚠️ This project is under heavy development. Expect bugs & breaking changes prior to v1.0.0's release.
+</Note>
 
 <div className="not-prose mb-16 mt-6 flex gap-3">
   <Button href="/quickstart" arrow="right" children="Quickstart" />
