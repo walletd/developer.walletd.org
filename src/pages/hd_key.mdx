@@ -4,12 +4,9 @@ export const description =
 # HD Key
 
 WalletD features [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) compliant HD keys
-to facilitate Hierarchical Deterministic (HD) wallets. Supports multiple HD key derivation
- paths including BIP44, BIP49, and BIP84. Has support for customization of
- the derivation path.
+to facilitate Hierarchical Deterministic (HD) wallets. 
 
-The HDKey struct is the main entry point to access walletD functionality for the [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) compliant HD keys. 
-A HDKey helps facilitate the HD Wallet feature. 
+In this section, we'll guide you on how to use walletD to access BIP39 mnemonics. {{ className: 'lead' }}
 
 
 ## Master HD Key from a Seed
@@ -18,12 +15,13 @@ A HDKey helps facilitate the HD Wallet feature.
  
  Here's how you can import a master hd key based on a seed hex:
 
-```rust
- use walletd_hd_key::prelude::*;
- let seed_hex = "a2fd9c0522d84d52ee4c8533dc02d4b69b4df9b6255e1af20c9f1d4d691689f2a38637eb1ec778972bf845c32d5ae83c7536999b5666397ac32021b21e0accee";;
+```rust {{ title: 'Example' }}
+ use walletd::walletd_hd_key::prelude::*;
+ let seed_hex = "a2fd9c0522d84d52ee4c8533dc02d4b69b4df9b6255e1af20c9f1d4d691689f2a38637eb1ec778972bf845c32d5ae83c7536999b5666397ac32021b21e0accee";
  let seed = Seed::from_str(seed_hex)?;
+ // creating a new master key for a testnet network based on the above seed
  let master_hd_key = HDKey::new_master(seed, HDNetworkType::TestNet)?;
- assert_eq!(master_hd_key.depth(), 0);
+ // the master hd key should have a depth of 0
  println!("master hd key depth {}", master_hd_key.depth());
  ```
 
@@ -36,33 +34,38 @@ A HDKey helps facilitate the HD Wallet feature.
  The extended public key and extended private key can also be serialized using a [standard serialized format](https://learnmeabitcoin.com/technical/extended-keys).
 
  How to display these key formats for an HDKey:
-```rust
- println!("wif of master hd key {}", master_hd_key.to_wif().unwrap());
- println!(
+
+```rust {{ title: 'Example' }}
+// use the to_wif method 
+println!("wif of master hd key {}", master_hd_key.to_wif().unwrap());
+
+// can display the serialized for mat of the extended private and public keys
+println!(
      "master hd key extended public key: {}",
      master_hd_key.extended_public_key_serialized()?
- );
- println!(
+);
+println!(
      "master hd key extended private key: {}",
      master_hd_key.extended_private_key_serialized()?
- );
+);
  ```
 
  ## Specify Derivation Path
 
- Can flexibly specify the derivation path using the HDPathBuilder. The default HDPathBuilder which can be accessed through `HDPath::builder()` does not specify the purpose, or coin type, and uses the hardened indices for the purpose, coin type, and account indices.
-```rust
+ You flexibly specify the derivation path using the HDPathBuilder. The default HDPathBuilder which can be accessed through `HDPath::builder()` does not specify the purpose, or coin type, and uses the hardened indices for the purpose, coin type, and account indices.
 
- use walletd_hd_key::prelude::*;
- use slip44::{Coin, Symbol};
+```rust {{ title: 'Example' }}
 
- let default_deriv_path = HDPath::builder().build().to_string();
- // without specifying the purpose, the default derivation path is "m
- assert_eq!(default_deriv_path, "m");
- println!("default derivation path: {}", default_deriv_path);
+use walletd::walletd_hd_key::prelude::*;
+use walletd::walletd_hd_key::slip44::{Coin, Symbol};
 
- // can flexibly specify the derivation path using the HDPathBuilder
- let account_deriv_path = HDPath::builder()
+let default_deriv_path = HDPath::builder().build().to_string();
+// without specifying the purpose, the default derivation path is "m
+assert_eq!(default_deriv_path, "m");
+println!("default derivation path: {}", default_deriv_path);
+
+// can flexibly specify the derivation path using the HDPathBuilder
+let account_deriv_path = HDPath::builder()
 .purpose_index(HDPurpose::BIP44.to_shortform_num())
 .coin_type_index(Coin::from(Symbol::ETH).id())
 .account_index(0)
@@ -70,18 +73,22 @@ A HDKey helps facilitate the HD Wallet feature.
 .no_address_index()
 .build().to_string();
 
- assert_eq!(account_deriv_path, "m/44'/60'/0'");
+// checking this is what we are expecting 
+assert_eq!(account_deriv_path, "m/44'/60'/0'");
  ```
 
  ## Derive Child HD Key
 
- Can derive a child key from the master key or a parent key using the HDKey::derive method.
-```rust
+ Can derive a child key from the master key or a parent key using the `HDKey::derive` method.
+
+```rust {{ title: 'Example' }}
  let eth_first_account_key = master_hd_key.derive(account_deriv_path.to_string())?;
+ // the master seed should be the same for a child HD Key and it's parent HD Key
  assert_eq!(
  eth_first_account_key.master_seed(),
  master_hd_key.master_seed()
  );
+ 
  println!(
  "eth_first_account_key depth {}",
  eth_first_account_key.depth()
@@ -91,7 +98,7 @@ A HDKey helps facilitate the HD Wallet feature.
 
  Can also use a string directly to represent the derivation path, `'` or `h` can be used to denote a hardened index.
 
-```rust
+```rust {{ title: 'Example' }}
 let account_deriv_path = HDPath::builder()
 .purpose_index(HDPurpose::BIP44.to_shortform_num())
 .coin_type_index(Coin::from(Symbol::ETH).id())
@@ -109,7 +116,7 @@ let account_deriv_path = HDPath::builder()
 
  A shortcut way to get a derived HDKey directly from a master seed, with a specified HDNetworkType and a derivation path is to use the `HDKey::new` method.
 
-```rust
+```rust {{ title: 'Example' }}
  let custom_key_path = HDPath::builder()
  .purpose_index(HDPurpose::BIP84.to_shortform_num())
  .coin_type_index(Coin::Testnet.id())
