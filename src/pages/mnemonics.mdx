@@ -27,10 +27,10 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 - `new() -> Self` 
 	 -	 Generates a new mnemonic given the language, length of mnemonic, and
 	 optional passphrase
-- `from_phrase() -\> Result\<Self, Error\>` 
+- `from_phrase() -> Result<Self, Error>` 
 	 -	 Restores a mnemonic from a mnemonic phrase and optional passphrase,
 	 requires specifying the language
-- `detect_language() -\> Result\<Self::Mnemonic, Self::ErrorType\> `
+- `detect_language() -> Result<Self::Mnemonic, Self::ErrorType> `
 	 -	 Restores a mnemonic from a mnemonic phrase and optional passphrase,
 	 automatically detects the language
 - `to_seed(&self) -> Seed` 
@@ -54,7 +54,7 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 
 ### `Bip39MnemonicType` Enum Methods
 
-- `from_word_count(size: usize) -\> Result\<Self, Error\>` 
+- `from_word_count(size: usize) -> Result<Self, Error>` 
 	 -	 The default mnemonic type is 12 words
 	 Creates the MnemonicType based on the word count
 	
@@ -62,14 +62,14 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	 return an `Error`
 	
 	
-- `from_key_size(size: usize) -\> Result\<Self, Error\>` 
+- `from_key_size(size: usize) -> Result<Self, Error>` 
 	 -	 Creates the MnemonicType based on the length of the key size in bits
 	
 	 Specifying a key size not provided for by the BIP39 standard will return
 	 an `Error`
 	
 	
-- `from_phrase(phrase: &str) -\> Result\<Self, Error\>` 
+- `from_phrase(phrase: &str) -> Result<Self, Error>` 
 	 -	 Get a Bip39MnemonicType for an existing mnemonic phrase
 	
 	 This can be used when you need information about a mnemonic phrase based
@@ -113,16 +113,16 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 - `new(language: Bip39Language) -> WordList` 
 	 -	 Creates a new WordList for a specifed language
 
-- `get_index(&self, word: &str) -\> Result\<usize, Error\>` 
+- `get_index(&self, word: &str) -> Result<usize, Error>` 
 	 -	 Gets the index of a word in a language's wordlist, returns error if word
 	 is not found in wordlist for a language
 
-- `detect_language(phrase: Vec\<&str\>) -\> Result\<Bip39Language, Error\>` 
+- `detect_language(phrase: Vec<&str>) -> Result<Bip39Language, Error>` 
 	 -	 If all words in the phrase are present in a language's wordlist, the
 	 language of the phrase is detected
 
 - `language(&self) -> Bip39Language` 
 	 -	 Returns the language of the WordList
 
-- `inner(&self) -\> Vec\<&'static str\>` 
+- `inner(&self) -> Vec<&'static str>` 
 	 -	 Returns the inner wordlist

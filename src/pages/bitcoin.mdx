@@ -25,14 +25,14 @@ WalletD features the ability to create and work with Bitcoin wallets. This resou
 - `associated_info(&self) -> &[AssociatedAddress]` 
 	 -	 Returns the associated info: info on the `associated Bitcoin addresses` paired with their `derived HD key`.
 
-- `addresses(&self) -> Vec\<BitcoinAddress\>` 
+- `addresses(&self) -> Vec<BitcoinAddress>` 
 	 -	 Returns a vector of the `BitcoinAddress` objects associated with the wallet.
 
-- `coin_type_id(&self) -> Result\<u32, Error\>` 
+- `coin_type_id(&self) -> Result<u32, Error>` 
 	 -	 Returns the coin type id num based on the `Bitcoin network`.
 	 Returns an `error` if the network is not supported.
 
-- `default_hd_purpose(&self) -> Result\<HDPurpose, Error\>` 
+- `default_hd_purpose(&self) -> Result<HDPurpose, Error>` 
 	 -	 Returns the `default HDPurpose` based on the `address format`
 	 Returns an `error` if the address format is not currently supported
 
@@ -45,18 +45,18 @@ WalletD features the ability to create and work with Bitcoin wallets. This resou
 	 If the account discovery setting is false, it will only search for addresses in the first account (account_index = 0).
 	 Returns the address format
 
-- `master_hd_key(&self) -> Result\<HDKey, Error\>` 
+- `master_hd_key(&self) -> Result<HDKey, Error>` 
 	 -	 Returns the master HDKey, if it exists otherwise returns an `error`
 
-- `network(&self) -> Result\<Network, Error\>` 
+- `network(&self) -> Result<Network, Error>` 
 	 -	 Returns the network based on the master HDKey
 
-- `next_address(&self) -> Result\<BitcoinAddress, Error\>` 
+- `next_address(&self) -> Result<BitcoinAddress, Error>` 
 	 -	 Returns a `BitcoinAddress` object on the the next available address on the first account (account_index = 0).
 	
 	 Returns an `error` with details if it encounters a problem while deriving the next address
 
-- `next_change_address(&self) -> Result\<BitcoinAddress, Error\>` 
+- `next_change_address(&self) -> Result<BitcoinAddress, Error>` 
 	 -	 Considering only account 0, returns the `next change address` corresponding to 1 + the max existing change address index.
 	
 	 Change addresses are used for sending change back to the wallet and have a value of 1 (internal chain) instead of 0 (external chain) in the derivation path for the change index.
@@ -78,26 +78,26 @@ WalletD features the ability to create and work with Bitcoin wallets. This resou
 - `account_discovery(&self) -> bool` 
 	 -	 Returns the account discovery flag that is being used when searching for addresses with this `wallet`.
 
-- `hd_path_builder(&self) -> Result\<HDPathBuilder, Error\>` 
+- `hd_path_builder(&self) -> Result<HDPathBuilder, Error>` 
 	 -	 Returns the `HDPathBuilder` that is being used when deriving addresses with this wallet
 	 If no `HDPathBuilder` has been set, the default `HDPathBuilder` that is being used is returned
 
-- `signature_sighashall_for_transaction_hash() -\> Result\<String, Error\>` 
+- `signature_sighashall_for_transaction_hash() -> Result<String, Error>` 
 	 -	 This function is used to calculate the signature as a hex encoded string with the option sighashall for a given transaction hash using a provided private key.
 
 - `sign_tx() -> Result<BTransaction, Error>` 
 	 -	 Signs a transaction with the provided private keys and returns the signed transaction.
 
-- `choose_inputs_and_set_fee() -\> Result\<(Vec\<Input\>, BitcoinAmount, Vec\<usize\>), Error\>` 
+- `choose_inputs_and_set_fee() -> Result<(Vec<Input>, BitcoinAmount, Vec<usize>), Error>` 
 	 -	 Goal is to find a combination of the fewest inputs that is bigger than
 	 what we need - close to twice the send amount while not producing a
 	 change amount that is smaller than what the fee would be to spend that
 	 amount.
 
-- `estimate_fee_with_default_sizes() -\> Result\<u64, Error\>` 
+- `estimate_fee_with_default_sizes() -> Result<u64, Error>` 
 	 -	 Estimates the fee for a transaction with the given number of inputs and outputs given the fee per byte, makes use of default sizes to estimate the size of the transaction and the corresponding fee.
 
-- `prepare_transaction() -\> Result\<(BTransaction, Vec\<usize\>), Error\>` 
+- `prepare_transaction() -> Result<(BTransaction, Vec<usize>), Error>` 
 	 -	 Prepares a transaction to be signed and broadcasted.
 
 ## `BitcoinWalletBuilder` Struct
