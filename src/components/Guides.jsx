@@ -5,30 +5,30 @@ const guides = [
   {
     href: '/mnemonics',
     name: 'Mnemonics',
-    description: 'Learn how to use mnemonics in walletD.',
+    description: 'Learn how to use mnemonics in WalletD.',
   },
   {
     href: '/hd_key',
     name: 'HD Key',
-    description: 'Understand how a hierarchical deterministic key works, and how to use it in walletD.',
+    description: 'Understand how a hierarchical deterministic key works, and how to use it in WalletD.',
   },
   {
     href: '/bitcoin_wallet',
     name: 'Bitcoin Wallet',
     description:
-      'Learn how to use walletD to implement a Bitcoin wallet.',
+      'Learn how to use WalletD to implement a Bitcoin wallet.',
   },
   {
     href: '/ethereum_wallet',
     name: 'Ethereum Wallet',
     description:
-      'Learn how to use walletD to implement an Ethereum wallet.',
+      'Learn how to use WalletD to implement an Ethereum wallet.',
   },
   {
     href: '/walletd_guide',
     name: 'WalletD Overview',
     description:
-      'Learn how to use walletD at high level.',
+      'Learn how to use WalletD at high level.',
   },
 ]
 
