@@ -27,7 +27,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 BIP49, and BIP84.
 
 ### `HDKey` Struct Methods
-- `new_master(seed: Seed, network_type: HDNetworkType) -> Result\<Self, Error\>` 
+- `new_master(seed: Seed, network_type: HDNetworkType) -> Result<Self, Error>` 
 	 -	 Create new master node for a HD wallet based on a seed
 	
 	 Follows the method described in [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) to convert the seed to the master node extended private and public keys
@@ -38,7 +38,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 this can happen if the seed is invalid or an error is encountered when
 	 specifying the extended private key and extended public key
 
-- `new() -\> Result\<Self, Error\>` 
+- `new() -> Result<Self, Error>` 
 	 -	 Returns a new ``HDKey`` from a seed (``Seed``), network type
 	 (``HDNetworkType``) and derivation path string.
 	
@@ -48,22 +48,22 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 Returns an ``Error`` with further details if the seed is invalid or the
 	 derivation path is invalid
 
-- `derive(&self, derivation_path: String) -> Result\<Self, Error\>` 
+- `derive(&self, derivation_path: String) -> Result<Self, Error>` 
 	 -	 Derives and returns a ``HDKey`` following the specified derivation path
 	 from the ``HDKey`` given as the self parameter as the parent key.
 
-- `to_wif(&self) -> Result\<String, Error\>` 
+- `to_wif(&self) -> Result<String, Error>` 
 	 -	 Convert the ``ExtendedPrivateKey`` associated with the ``HDKey`` to a
 	 Wallet Import Format (WIF). [Using wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format)
 	 Returns an ``Error`` if the extended private key is missing or another
 	 error is encountered.
 
-- `extended_private_key(&self) -> Result\<ExtendedPrivateKey, Error\>`
+- `extended_private_key(&self) -> Result<ExtendedPrivateKey, Error>`
 	 -	 Returns the extended private key
 	
 	 Returns an `error` if the extended private key is missing
 
-- `extended_public_key(&self) -> Result\<ExtendedPublicKey, Error\>` 
+- `extended_public_key(&self) -> Result<ExtendedPublicKey, Error>` 
 	 -	 Returns the extended public key
 	
 	 Returns an `error` if the extended public key is missing
@@ -89,16 +89,16 @@ This resource provides documentation related to HD keys in walletD. {{ className
 - `network(&self) -> HDNetworkType` 
 	 -	 Returns the network associated with the HD Key
 
-- `extended_private_key_serialized(&self) -> Result\<String, Error\>` 
+- `extended_private_key_serialized(&self) -> Result<String, Error>` 
 	 -	 Extended Private Key Serialization
 
-- `extended_public_key_serialized(&self) -> Result\<String, Error\>` 
+- `extended_public_key_serialized(&self) -> Result<String, Error>` 
 	 -	 Extended Public Key Serialization
 
-- `private_key_prefix(&self) -> Result\<[u8; 4], Error\>` 
+- `private_key_prefix(&self) -> Result<[u8; 4], Error>` 
 	 -	 Returns the private key prefix
 
-- `public_key_prefix(&self) -> Result\<[u8; 4], Error\>` 
+- `public_key_prefix(&self) -> Result<[u8; 4], Error>` 
 	 -	 Returns the public key prefix
 
 ## `HDPurpose` Enum
@@ -199,7 +199,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 
 ### `HDPath` Struct Methods
 
-- `new(path: &str) -> Result\<Self, Error\>` 
+- `new(path: &str) -> Result<Self, Error>` 
 	 -	 Creates a new ``HDPath`` from a string representation of the path.
 
 - `push(&mut self, index: HDPathIndex)` 
@@ -211,14 +211,14 @@ This resource provides documentation related to HD keys in walletD. {{ className
 - `is_empty(&self) -> bool` 
 	 -	 Returns true if the path is empty, false otherwise
 
-- `derive_path_str_to_list(deriv_path: &str) -> Result\<Vec\<String\>, Error\>` 
+- `derive_path_str_to_list(deriv_path: &str) -> Result<Vec<String>, Error>` 
 	 -	 Helper function to convert a derivation path string to a list of strings
 	 Returns ``Error`` if the path is empty or does not start with "m"
 
-- `to_vec(&self) -> Vec\<HDPathIndex\>` 
+- `to_vec(&self) -> Vec<HDPathIndex>` 
 	 -	 Returns the underlying vector of ``HDPathIndex``
 
-- `derive_path_str_to_info(deriv_path: &str) -> Result\<Vec\<HDPathIndex>, Error\>` 
+- `derive_path_str_to_info(deriv_path: &str) -> Result<Vec<HDPathIndex>, Error>` 
 	 -	 Helper function to convert a derivation path string to a vector of
 	 ``HDPathIndex``
 	 Returns an ``Error`` variant if the derivation path string is invalid
@@ -226,39 +226,39 @@ This resource provides documentation related to HD keys in walletD. {{ className
 - `builder() -> HDPathBuilder` 
 	 -	 Returns the builder for the HDPath (HDPathBuilder)
 
-- `at(&self, index: usize) -> Result\<HDPathIndex, Error\>` 
+- `at(&self, index: usize) -> Result<HDPathIndex, Error>` 
 	 -	 Returns the HDPathIndex object at the specified position (index) in the
 	 path if it exists, otherwise returns an `error`
 
-- `purpose(&self) -> Result\<HDPurpose, Error\>` 
+- `purpose(&self) -> Result<HDPurpose, Error>` 
 	 -	 Returns the HDPurpose value related to the purpose attribute, if it
 	 exists in the HDPath
 	
 	 Returns an error ``Error::IndexOutOfRange`` if the index 1 is not valid
 	 for the HDPath object
 
-- `coin_type(&self) -> Result\<HDPathIndex, Error\>` 
+- `coin_type(&self) -> Result<HDPathIndex, Error>` 
 	 -	 Returns the HDPathIndex value related to the coin_type attribute, if it
 	 exists in the HDPath
 	
 	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
 	 the HDPath object
 
-- `account(&self) -> Result\<HDPathIndex, Error\>` 
+- `account(&self) -> Result<HDPathIndex, Error>` 
 	 -	 Returns the HDPathIndex value related to the account attribute, if it
 	 exists in the HDPath
 	
 	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
 	 the HDPath object
 
-- `change(&self) -> Result\<HDPathIndex, Error\>` 
+- `change(&self) -> Result<HDPathIndex, Error>` 
 	 -	 Returns the HDPathIndex value related to the change attribute, if it
 	 exists in the HDPath
 	
 	 Returns an error ``Error::IndexOutOfRange`` if the index is not valid for
 	 the HDPath object
 
-- `address(&self) -> Result\<HDPathIndex, Error\>` 
+- `address(&self) -> Result<HDPathIndex, Error>` 
 	 -	 Returns the HDPathIndex value related to the address attribute, if it
 	 exists in the HDPath
 	
@@ -381,7 +381,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 - `to_public_key(&self) -> ExtendedPublicKey` 
 	 -	 Converts the `ExtendedPrivateKey` to an `ExtendedPublicKey`.
 
-- `add_tweak(mut self, tweak: &secp256k1::Scalar) -> Result\<Self, Error\>` 
+- `add_tweak(mut self, tweak: &secp256k1::Scalar) -> Result<Self, Error>` 
 	 -	 Adds a tweak to the underlying private key.
 
 ## `ExtendedPublicKey` Struct
@@ -389,7 +389,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 struct to be used with `HDKey`
 	 
 ### `ExtendedPublicKey` Struct Methods 
-- `from_slice(slice: &[u8]) -> Result\<Self, Error\>	 
+- `from_slice(slice: &[u8]) -> Result<Self, Error>`	 
 	 -	 Creates a new `ExtendedPublicKey` from a slice of bytes.
 
 - `from_private_key(private_key: &ExtendedPrivateKey) -> Self`	 
