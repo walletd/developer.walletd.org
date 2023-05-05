@@ -2,4 +2,109 @@ export const description =
   'On this page, we’ll dive into the different ways walletD facilitates implementing cryptocurrency wallets with a common interface and connect to decentralized blockchains.'
 
 # WalletD KeyPair
- 
+
+WalletD is a cryptocurrency wallet library that encapsulates Rust-based functionality for various different cryptocurrencies and blockchains.
+It contains features to handle creating and importing wallets, checking balances, and sending and receiving transactions.
+It aims to provide a common interface for interacting with different cryptocurrencies and blockchains.
+WalletD is being built to facilitate and simplify development and implementation of multi-cryptocurrency non-custodial wallets. This resource provides documentation related the high-level KeyPair in walletD. {{ className: 'lead' }}
+
+<div className="not-prose">
+  <Button
+    href="/bitcoin_wallet"
+    variant="text"
+    arrow="right"
+    children="Check out our high-level guide on walletD for examples"
+  />
+</div>
+
+## `KeyPair` Struct
+	 Holds info about a mnemonic type and the associated seed and phrase as well as the network type.
+	 Enables the creation of a HD wallet from a mnemonic phrase that could be used with multiple cryptocurrencies.
+
+### `KeyPair` Struct Methods
+
+- `new() -> Self` 
+	 -	 Creates a new KeyPair struct
+
+- `builder() -> KeyPairBuilder` 
+	 -	 Returns a new KeyPairBuilder struct with default options, allows use of builder pattern to specify options
+
+- `mnemonic_seed(&self) -> Seed` 
+	 -	 Returns the mnemonic seed as a `Seed` type
+
+- `mnemonic_phrase(&self) -> &str` 
+	 -	 Returns mnemonic phrase as a &str type
+
+- `passphrase(&self) -> Option<&str>` 
+	 -	 Returns passphrase as a Option\<&str\> type
+
+- `to_master_key(&self) -> HDKey` 
+	 -	 Returns the master HD key
+
+- `network_type(&self) -> HDNetworkType` 
+	 -	 Returns the HD network type
+
+- `style(&self) -> MnemonicKeyPairType` 
+	 -	 Returns the mnemonic key pair type (`MnemonicKeyPairType`)
+
+- `derive_wallet<T>(&self) -> Result<T, Error>`
+	 -	 Derives a wallet of the specified generic type T from the `KeyPair` struct
+	 T must implement the CryptoWallet trait
+
+## `MnemonicKeyPairType` Enum
+	 Used to specify the type of mnemonic phrase associated with a `KeyPair` struct.
+
+   Fields have info on:
+   - The style of the mnemonic phrase
+	 - The mnemonic seed (derived from the mnemonic phrase as well as the optional passphrase)
+	 - The mnemonic phrase
+	 - The optional passphrase
+	 - The HD network type
+
+### `MnemonicKeyPairType` Variants	 
+  - `HDBip39`
+	  - The mnemonic phrase is a BIP39 phrase and is affiliated with a HD wallet
+
+## `KeyPairBuilder` Struct
+	 A builder for the `KeyPair` struct, can be used is used specify options for and build a `KeyPair` struct.
+   Fields have info on:
+    -	 Option to set the mnemomonic phrase
+	  - Option to set the mnemonic seed
+	  - Option to set the passphrase
+	  - Option to set the network type
+	  - Option to set the mnemonic key pair type
+	 
+### `KeyPairBuilder` Struct Methods
+
+- `new() -> Self `
+	 - Creates a new KeyPairBuilder struct with the default options
+
+- `mnemonic_phrase(&mut self, mnemonic_phrase: String) -> &mut Self` 
+	 -	 Specifies the mnemonic phrase
+
+- `mnemonic_seed(&mut self, mnemonic_seed: Seed) -> &mut Self` 
+	 -	 Specifies the mnemonic seed
+
+- `passphrase(&mut self, passphrase: String) -> &mut Self` 
+	 -	 Specifies the passphrase
+
+- `network_type(&mut self, network_type: HDNetworkType) -> &mut Self` 
+	 -	 Specifies the network type
+
+- `style(&mut self, style: MnemonicKeyPairType) -> &mut Self` 
+	 -	 Specifies the mnemonic phrase key pair type
+
+- `no_mnemonic_phrase(&mut self) -> &mut Self` 
+	 -	 Sets the mnemonic phrase to None, unspecifies the mnemonic phrase if it had previously been specified on the same builder
+
+- `no_mnemonic_seed(&mut self) -> &mut Self` 
+	 -	 Sets the mnemonic seed to None, unspecifies the mnemonic seed if it had previously been specified on the same builder
+
+- `no_passphrase(&mut self) -> &mut Self` 
+	 -	 Sets the passphrase to None, unspecifies the passphrase if it had previously been specified on the same builder
+
+- `build(&mut self) -> Result<KeyPair, Error>` 
+	 -	 Builds the KeyPair struct, returns an error if neither the mnemonic phrase nor the mnemonic seed was specified
+
+
+
