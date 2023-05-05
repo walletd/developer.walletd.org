@@ -24,6 +24,12 @@ const guides = [
     description:
       'Learn how to use walletD to implement an Ethereum wallet.',
   },
+  {
+    href: '/walletd_guide',
+    name: 'WalletD Overview',
+    description:
+      'Learn how to use walletD at high level.',
+  },
 ]
 
 export function Guides() {

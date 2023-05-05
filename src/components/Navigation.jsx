@@ -190,19 +190,20 @@ export const navigation = [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
       { title: 'Mnemonics', href: '/mnemonics_guide' },
-      { title: 'HD Key', href: '/hd_key' },
+      { title: 'HD Key', href: '/hd_key_guide' },
       { title: 'Bitcoin Wallet', href: '/bitcoin_wallet' },
       { title: 'Ethereum Wallet', href: '/ethereum_wallet' },
+      { title: 'WalletD', href: '/walletd_guide' }
     ],
   },
   {
     title: 'Resources',
     links: [
       { title: 'Mnemonics', href: '/mnemonics' },
-      { title: 'HD Wallet', href: '/hd_wallet' },
-      // { title: 'Blockchain Connectors', href: '/blockchain_connectors' },
+      { title: 'HD Key', href: '/hd_key' },
       { title: 'Bitcoin', href: '/bitcoin' },
       { title: 'Ethereum', href: '/ethereum' },
+      { title: 'WalletD KeyPair', href: '/walletd_keypair' },
     ],
   },
 ]

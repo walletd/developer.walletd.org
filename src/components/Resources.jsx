@@ -24,8 +24,8 @@ const resources = [
     },
   },
   {
-    href: '/hd_wallet',
-    name: 'HD Wallet',
+    href: '/hd_key',
+    name: 'HD Key',
     description:
       'Learn how walletD facilitates the use of HD wallets.',
     icon: ChatBubbleIcon,
@@ -34,20 +34,6 @@ const resources = [
       squares: [
         [-1, 2],
         [1, 3],
-      ],
-    },
-  },
-  {
-    href: '/blockchain_connectors',
-    name: 'Blockchain Connectors',
-    description:
-      'Learn about how walletD helps you connect to decentralized blockchains.',
-    icon: EnvelopeIcon,
-    pattern: {
-      y: 32,
-      squares: [
-        [0, 2],
-        [1, 4],
       ],
     },
   },
@@ -68,6 +54,19 @@ const resources = [
     name: 'Ethereum',
     description:
       'Learn about how walletD simplifies interacting with Ethereum.',
+    icon: UsersIcon,
+    pattern: {
+      y: 22,
+      squares: [[0, 1]],
+    },
+  },
+
+
+  {
+    href: '/walletd_keypair',
+    name: 'WalletD KeyPair',
+    description:
+      'Reference on walletD KeyPair .',
     icon: UsersIcon,
     pattern: {
       y: 22,

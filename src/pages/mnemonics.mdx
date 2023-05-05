@@ -4,7 +4,16 @@ export const description =
 # Mnemonics
 
 In the context of cryptocurrency, a mnemonic is a group of words that are created at the same time a new cryptowallet is created. 
-The group of words in a mnemonic phrase encode in some way the bytes specific to the keys to a new wallet.  
+The group of words in a mnemonic phrase encode in some way the bytes specific to the keys to a new wallet. This resource provides documentation related to mnemonics in walletD. {{ className: 'lead' }}
+
+<div className="not-prose">
+  <Button
+    href="/mnemonics_guide"
+    variant="text"
+    arrow="right"
+    children="Check out our guide to using mnemonics in walletD for examples"
+  />
+</div>
 
 ---
 
@@ -12,19 +21,15 @@ The group of words in a mnemonic phrase encode in some way the bytes specific to
 
 A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for HD wallet mnemonic phrases.
 
-## `Bip39Mnemonic` Struct 
-	 
+## `Bip39Mnemonic` Struct  
    Represents a mnemonic which follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
-### `Bip39Mnemonic` Struct Functions
-
+### `Bip39Mnemonic` Struct Methods
 - ###  `new() -> Self` 
 	 -	 Generates a new mnemonic given the language, length of mnemonic, and
 	 optional passphrase
-
 - ###  `from_phrase() -\> Result\<Self, Error\>` 
 	 -	 Restores a mnemonic from a mnemonic phrase and optional passphrase,
 	 requires specifying the language
-
 - ###  `detect_language() -\> Result\<Self::Mnemonic, Self::ErrorType\> `
 	 -	 Restores a mnemonic from a mnemonic phrase and optional passphrase,
 	 automatically detects the language
@@ -36,20 +41,15 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	 -	 Gets the lang field data
 - ###  `mnemonic_type(&self) -> Bip39MnemonicType` 
 	 -	 Gets the mnemonic_type data
-
+   
 ## `Bip39MnemonicType` Enum
  	 Represents the different number of words that can be used for a valid `Bip39Mnemonic`
 	
-- ### `Words12` 
-	 12 word mnemonic phrase
-- ### `Words15` 
-	 15 word mnemonic phrase
-- ### `Words18` 
-	 18 word mnemonic phrase
-- ### `Words21` 
-	 21 word mnemonic phrase
-- ### `Words24`
-	 24 word mnemonic phrase
+- ### `Words12` 12 word mnemonic phrase
+- ### `Words15` 15 word mnemonic phrase
+- ### `Words18` 18 word mnemonic phrase
+- ### `Words21` 21 word mnemonic phrase
+- ### `Words24` 24 word mnemonic phrase
 
 ### `Bip39MnemonicType` Enum Functions
 
