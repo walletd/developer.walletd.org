@@ -23,7 +23,11 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 
 ## `Bip39Mnemonic` Struct  
    Represents a mnemonic which follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki).
+
 ### `Bip39Mnemonic` Struct Methods
+
+***`Bip39Mnemonic`'s Implementation of the `Mnemonic` Trait***
+
 - `new() -> Self` 
 	 -	 Generates a new mnemonic given the language, length of mnemonic, and
 	 optional passphrase
@@ -42,28 +46,31 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 - `mnemonic_type(&self) -> Bip39MnemonicType` 
 	 -	 Gets the mnemonic_type data
 
+- `builder() -> Self::MnemonicBuilder`
+  - Returns the default builder `Bip39MnemonicBuilder`
+
 ## `Bip39MnemonicType` Enum
  	 Represents the different number of words that can be used for a valid `Bip39Mnemonic`
 
 ### `Bip39MnemonicType` Enum Variants
-- `Words12` 12 word mnemonic phrase
-- `Words15` 15 word mnemonic phrase
-- `Words18` 18 word mnemonic phrase
-- `Words21` 21 word mnemonic phrase
-- `Words24` 24 word mnemonic phrase
+- `Words12` 12 word mnemonic phrase (128 bits of entropy)
+  - The default mnemonic type is 12 words
+- `Words15` 15 word mnemonic phrase (160 bits of entropy)
+- `Words18` 18 word mnemonic phrase (192 bits of entropy)
+- `Words21` 21 word mnemonic phrase (224 bits of entropy)
+- `Words24` 24 word mnemonic phrase (256 bits of entropy)
 
 ### `Bip39MnemonicType` Enum Methods
 
 - `from_word_count(size: usize) -> Result<Self, Error>` 
-	 -	 The default mnemonic type is 12 words
-	 Creates the MnemonicType based on the word count
+	 - Creates the `MnemonicType` based on the word count
 	
 	 Specifying a word count not provided for by the BIP39 standard will
 	 return an `Error`
 	
 	
 - `from_key_size(size: usize) -> Result<Self, Error>` 
-	 -	 Creates the MnemonicType based on the length of the key size in bits
+	 -	 Creates the `MnemonicType` based on the length of the key size in bits
 	
 	 Specifying a key size not provided for by the BIP39 standard will return
 	 an `Error`
@@ -111,10 +118,10 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 
 ### `WordList` Struct Methods
 - `new(language: Bip39Language) -> WordList` 
-	 -	 Creates a new WordList for a specifed language
+	 -	 Creates a new `WordList` for a specified language
 
 - `get_index(&self, word: &str) -> Result<usize, Error>` 
-	 -	 Gets the index of a word in a language's wordlist, returns error if word
+	 -	 Gets the index of a word in a language's wordlist, returns `Error` if word
 	 is not found in wordlist for a language
 
 - `detect_language(phrase: Vec<&str>) -> Result<Bip39Language, Error>` 
@@ -122,7 +129,7 @@ A BIP39 Mnemonic follows the [BIP39 standard](https://github.com/bitcoin/bips/bl
 	 language of the phrase is detected
 
 - `language(&self) -> Bip39Language` 
-	 -	 Returns the language of the WordList
+	 -	 Returns the language of the `WordList`
 
 - `inner(&self) -> Vec<&'static str>` 
 	 -	 Returns the inner wordlist
