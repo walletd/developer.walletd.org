@@ -5,14 +5,14 @@ export const description =
 
 WalletD features [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) compliant HD keys
 to facilitate Hierarchical Deterministic (HD) wallets. 
-This resource provides documentation related to HD keys in walletD. {{ className: 'lead' }}
+This resource provides documentation related to HD keys in WalletD. {{ className: 'lead' }}
 
 <div className="not-prose">
   <Button
     href="/hd_key_guide"
     variant="text"
     arrow="right"
-    children="Check out our guide to using HD keys in walletD for examples"
+    children="Check out our guide to using HD keys in WalletD for examples"
   />
 </div>
 
@@ -42,10 +42,10 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 -	 Returns a new ``HDKey`` from a seed (``Seed``), network type
 	 (``HDNetworkType``) and derivation path string.
 	
-	 The HDKey returned will be the child key derived from the master node
+	 The `HDKey` returned will be the child key derived from the master node
 	 specified from the seed using the derivation path.
 	
-	 Returns an ``Error`` with further details if the seed is invalid or the
+	 Returns an `Error` with further details if the seed is invalid or the
 	 derivation path is invalid
 
 - `derive(&self, derivation_path: String) -> Result<Self, Error>` 
@@ -54,7 +54,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 
 - `to_wif(&self) -> Result<String, Error>` 
 	 -	 Convert the ``ExtendedPrivateKey`` associated with the ``HDKey`` to a
-	 Wallet Import Format (WIF). [Using wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format)
+	 [Wallet Import Format (WIF)](https://en.bitcoin.it/wiki/Wallet_import_format).
 	 Returns an ``Error`` if the extended private key is missing or another
 	 error is encountered.
 
@@ -343,12 +343,14 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 The `HDPath` will go in order from purpose, coin_type, account, change,
 	 address_index
 	
-	 If the purpose is not set, the HDPath will return the HDPath with the
-	 Master index only If the coin_type is not set, the HDPath will
-	 return the HDPath with the Master and purpose index It will use the
+	 If the purpose is not set, the `HDPath` will return the `HDPath` with the
+	 Master index only.
+	If the coin_type is not set, the HDPath will
+	 return the `HDPath` with the Master and purpose index.
+	  It will use the
 	 defaults for the account, change, and address_index unless if something
-	 else has been specified on the builder using the with or set functions.
-	 So in order to build a full HDPath going up to the address index, the
+	 else has been specified on the builder.
+	 So in order to build a full `HDPath` going up to the address index, the
 	 purpose and coin_type must be set.
 
 ## `HDNetworkType` Enum
@@ -367,7 +369,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	- MainNet used for the production network
 
 ## `ExtendedPrivateKey` Struct
-	 A wrapper around the `secp256k1::SecretKey`
+	 A wrapper around the [`secp256k1::SecretKey`](https://docs.rs/secp256k1/0.27.0/secp256k1/struct.SecretKey.html)
 	 struct to be used with `HDKey`.
 
 ### `ExtendedPrivateKey` Struct Methods
@@ -385,7 +387,7 @@ This resource provides documentation related to HD keys in walletD. {{ className
 	 -	 Adds a tweak to the underlying private key.
 
 ## `ExtendedPublicKey` Struct
-	 A wrapper around the `secp256k1::PublicKey`
+	 A wrapper around the [`secp256k1::PublicKey`](https://docs.rs/secp256k1/0.27.0/secp256k1/struct.PublicKey.html)
 	 struct to be used with `HDKey`
 	 
 ### `ExtendedPublicKey` Struct Methods 

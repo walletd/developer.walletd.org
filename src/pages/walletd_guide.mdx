@@ -1,68 +1,79 @@
 export const description =
-  'On this page, we’ll dive into the different ways walletD facilitates implementing cryptocurrency wallets with a common interface and connect to decentralized blockchains.'
+  'On this page, we’ll dive into the different ways WalletD facilitates implementing cryptocurrency wallets with a common interface and connect to decentralized blockchains.'
 
 # WalletD Overview
 
- This page is intended to be a basic introduction to how WalletD is able to manage wallets, interact with it using your mnemonic phrase, and send currency to other addresses. 
+ This page is intended to be a basic introduction to how WalletD is able to manage wallets, interact with it using your mnemonic phrase, and send currency to other addresses. {{className: 'lead'}}
 
- ## Restoring from a mnemonic phrase (Creating an HD KeyPair using a BIP39 Mnemonic)
+<div className="not-prose">
+  <Button
+    href="/quickstart/#notes-on-following-the-guides"
+    variant="text"
+    arrow="right"
+    children="Notes on following the guide examples"
+  />
+</div>
 
- Here's how you can create a `KeyPair` from a `Bip39Mnemonic` using the `KeyPairBuilder`.
+```rust {{ title: 'Imports needed for this section' }}
+use walletd::prelude::*; // Imports the necessary modules for WalletD's core functionality
+use walletd::walletd_bip39::prelude::*; // Imports the necessary modules to work with BIP39 
+use walletd::walletd_bitcoin::prelude::*; // Imports the necessary modules for Bitcoin
+use walletd::walletd_ethereum::prelude::*;// Imports the necessary modules for Ethereum
+```
 
-```rust {{ title: 'Example' }}
- use walletd::prelude::*; // Imports the necessary modules for WalletD's core functionality
- use walletd::walletd_bip39::prelude::*; // Imports the necessary modules to work with BIP39
- let mnemonic_phrase = "outer ride neither foil glue number place usage ball shed dry point"; // Store our mnemonic phrase in a string
- let bip39_mnemonic = Bip39Mnemonic::builder().mnemonic_phrase(mnemonic_phrase).build()?; // Attempt to use the BIP39 Mnemonic Builder to restore from your phrase
- let seed = bip39_mnemonic.to_seed(); // This retrieves a hexidecimal representation of your mnemonic phrase
- println!("seed_hex: {:x}", seed); //  This gets a hexidecimal value 
- let master_hd_key = HDKey::new_master(seed, HDNetworkType::TestNet)?; // Creates an instance of an HDKey
- let keypair = KeyPair::builder().mnemonic_phrase(mnemonic_phrase.into()).network_type(HDNetworkType::TestNet).build()?; // Derives a keypair from your master key
+## Restoring from a mnemonic phrase (Creating an HD KeyPair using a BIP39 Mnemonic)
 
- assert_eq!(keypair.to_master_key(), master_hd_key);
- ```
-
- ## Using your keypair to derive one or more wallets (Deriving Wallets)
-
- The ``KeyPair::derive_wallet`` method can be used to derive a `cryptowallet` for a specific cryptocurrency from a `KeyPair`.
- You can specify a concrete struct that implements the `CryptoWallet` trait such as `BitcoinWallet`  or `EthereumWallet` to derive a cryptowallet from the `keypair` of the specified concrete type.
+Here's how you can create a `KeyPair` from a `Bip39Mnemonic` using the `KeyPairBuilder`.
 
 ```rust {{ title: 'Example' }}
- use walletd::walletd_bitcoin::prelude::*; // Imports the necessary modules for Bitcoin
- use walletd::walletd_ethereum::prelude::*;// Imports the necessary modules for Ethereum
- let mut btc_wallet = keypair.derive_wallet::\<BitcoinWallet\>()?; // Retrieve an instance of a Bitcoin wallet
- let mut eth_wallet = keypair.derive_wallet::\<EthereumWallet\>()?; // Retrieve an instance of an Ethereum wallet
+let mnemonic_phrase = "outer ride neither foil glue number place usage ball shed dry point"; // Store our mnemonic phrase in a string
+let bip39_mnemonic = Bip39Mnemonic::builder().mnemonic_phrase(mnemonic_phrase).build()?; // Attempt to use the BIP39 Mnemonic Builder to restore from your phrase
+let seed = bip39_mnemonic.to_seed(); // This retrieves a hexidecimal representation of your mnemonic phrase
+println!("seed_hex: {:x}", seed); //  This gets a hexidecimal value 
+let master_hd_key = HDKey::new_master(seed, HDNetworkType::TestNet)?; // Creates an instance of an HDKey
+let keypair = KeyPair::builder().mnemonic_phrase(mnemonic_phrase.into()).network_type(HDNetworkType::TestNet).build()?; // Derives a keypair from your master key
+assert_eq!(keypair.to_master_key(), master_hd_key);
  ```
 
- ## Telling WalletD which data endpoints to use to retrieve blokchain data (BlockchainConnectors)
+ # Using your keypair to derive one or more wallets (Deriving Wallets)
 
- In order to interact with a specific Blockchain, we need to tell WalletD where to access the relevant information from. 
+The ``KeyPair::derive_wallet`` method can be used to derive a `cryptowallet` for a specific cryptocurrency from a `KeyPair`.
+You can specify a concrete struct that implements the `CryptoWallet` trait such as `BitcoinWallet`  or `EthereumWallet` to derive a cryptowallet from the `keypair` of the specified concrete type.
 
- WalletD uses the concept of blockchain connectors to allow for different endpoints to be used to retrieve data. These blockchain connectors will be needed in order to retrieve network information.
+```rust {{ title: 'Example' }}
+let mut btc_wallet = keypair.derive_wallet::<BitcoinWallet>()?; // Retrieve an instance of a Bitcoin wallet
+let mut eth_wallet = keypair.derive_wallet::<EthereumWallet>()?; // Retrieve an instance of an Ethereum wallet
+```
+
+ ## Telling WalletD which data endpoints to use to retrieve blockchain data (`BlockchainConnectors`)
+
+In order to interact with a specific Blockchain, we need to tell WalletD where to access the relevant information from. 
+
+WalletD uses the concept of blockchain connectors to allow for different endpoints to be used to retrieve data. These blockchain connectors will be needed in order to retrieve network information. 
  
- WalletD currently supports connecting to Blockstream for Bitcoin data. For Ethereum, WalletD supports the use of any Ethereum node that follows the [Ethereum JSON-RPC specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+WalletD currently supports connecting to [Blockstream](https://github.com/Blockstream/esplora/blob/master/API.md) for Bitcoin data. For Ethereum, WalletD supports the use of any Ethereum node that follows the [Ethereum JSON-RPC specification](https://ethereum.org/en/developers/docs/apis/json-rpc/)
 
- You can setup a `Blockstream` blockchain client to access the Bitcoin blockchain and an `EthClient` blockchain client to access the Ethereum blockchain.
- Specifying a valid endpoint url is required for any WalletD blockchain clients.
- To associate an existing instance of a `cryptowallet` with a `blockchain client`, use the ``set_blockchain_client`` method on the `cryptowallet` object.
+You can setup a `Blockstream` blockchain client to access the Bitcoin blockchain and an `EthClient` blockchain client to access the Ethereum blockchain.
+Specifying a valid endpoint url is required for any WalletD blockchain client.
+To associate an existing instance of a `CryptoWallet` with a `blockchain client`, use the ``set_blockchain_client`` method on the `CryptoWallet` object.
 
 ```rust {{ title: 'Associating a wallet with a specific blockchain data source' }}
 let btc_blockchain_client = Blockstream::new("https://blockstream.info/testnet/api")?; // Create a BTC blockchain connector
 let eth_blockchain_client = EthClient::new("https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161")?; // Create an ETH blockchain connector
- btc_wallet.set_blockchain_client(btc_blockchain_client)?; // Set the data source for this wallet by telling it which connector to use
- btc_wallet.set_blockchain_client(eth_blockchain_client)?; // Set the data source for this wallet by telling it which connector to use
+btc_wallet.set_blockchain_client(btc_blockchain_client)?; // Set the data source for this wallet by telling it which connector to use
+btc_wallet.set_blockchain_client(eth_blockchain_client)?; // Set the data source for this wallet by telling it which connector to use
 ```
 
- ## Use the CryptoWallets
- Once you have a `cryptowallet` object associated with a `blockchain client` you can use the `cryptowallet` to access blockchain data.
- Any object that implements the `CryptoWallet` trait must implement functions within the trait which include ``balance``, and ``transfer``.
+## Use the CryptoWallets
+Once you have a `cryptowallet` object associated with a `blockchain client` you can use the `cryptowallet` to access blockchain data.
+Any object that implements the `CryptoWallet` trait must implement functions within the trait which include ``balance``, and ``transfer``.
 
 ```rust {{ title: 'Example' }}
- btc_wallet.sync().await?;
- println!("btc_wallet balance: {} BTC", btc_wallet.balance().await?.btc());
- let mut eth_wallet = keypair.derive_wallet::\<EthereumWallet\>()?;
- print!("eth_wallet public address: {}", eth_wallet.public_address());
- let eth_client = EthClient::new("https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161")?;
- eth_wallet.set_blockchain_client(eth_client);
- println!("eth_wallet balance: {} ETH", eth_wallet.balance().await?.eth());
- ```
+btc_wallet.sync().await?;
+println!("btc_wallet balance: {} BTC", btc_wallet.balance().await?.btc());
+let mut eth_wallet = keypair.derive_wallet::\<EthereumWallet\>()?;
+print!("eth_wallet public address: {}", eth_wallet.public_address());
+let eth_client = EthClient::new("https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161")?;
+eth_wallet.set_blockchain_client(eth_client);
+println!("eth_wallet balance: {} ETH", eth_wallet.balance().await?.eth());
+```

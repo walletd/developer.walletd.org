@@ -13,7 +13,7 @@ const resources = [
     href: '/mnemonics',
     name: 'Mnemonics',
     description:
-      'Learn about features for handling mnemonics in walletD.',
+      'Learn about features for handling mnemonics in WalletD.',
     icon: UserIcon,
     pattern: {
       y: 16,
@@ -27,7 +27,7 @@ const resources = [
     href: '/hd_key',
     name: 'HD Key',
     description:
-      'Learn how walletD facilitates the use of HD wallets.',
+      'Learn how WalletD facilitates the use of HD wallets.',
     icon: ChatBubbleIcon,
     pattern: {
       y: -6,
@@ -41,7 +41,7 @@ const resources = [
     href: '/bitcoin',
     name: 'Bitcoin',
     description:
-      'Learn about how walletD simplifies interacting with Bitcoin.',
+      'Learn about how WalletD simplifies interacting with Bitcoin.',
     icon: UsersIcon,
     pattern: {
       y: 22,
@@ -53,7 +53,7 @@ const resources = [
     href: '/ethereum',
     name: 'Ethereum',
     description:
-      'Learn about how walletD simplifies interacting with Ethereum.',
+      'Learn about how WalletD simplifies interacting with Ethereum.',
     icon: UsersIcon,
     pattern: {
       y: 22,
@@ -66,7 +66,7 @@ const resources = [
     href: '/walletd_keypair',
     name: 'WalletD KeyPair',
     description:
-      'Reference on walletD KeyPair .',
+      'Reference on WalletD KeyPair .',
     icon: UsersIcon,
     pattern: {
       y: 22,

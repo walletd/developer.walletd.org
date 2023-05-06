@@ -12,8 +12,8 @@ We'll cover how to install Rust, add [WalletD](https://crates.io/crates/walletd)
 ## Installing Rust
 
 Rust can be installed by following the instructions on [rust-lang.org](https://www.rust-lang.org/tools/install), [rustup.rs](https://rustup.rs) or your choice of package manager. 
-Refer to [`the Rust book`](https://doc.rust-lang.org/book/) for more guidance on the installation and how to [set up a Rust project directory](https://doc.rust-lang.org/book/ch01-02-hello-world.html).
-You can set up a new Rust project to try out WalletD or incorporate the `walletd` crate into your existing Rust project.
+Refer to [`the Rust book`](https://doc.rust-lang.org/book/) for more guidance on the installation. 
+You can [set up a new Rust project](https://doc.rust-lang.org/book/ch01-02-hello-world.html) to try out WalletD or incorporate the `walletd` crate into your existing Rust project.
 
 ## Install the WalletD Rust Library
 
@@ -46,10 +46,33 @@ walletd = "0.1.0"
 
 ## What's next?
 
-Great, you're now set up with installing the WalletD Rust library.
-Here are a few links that might be handy as you venture further into walletD.
+Great, you're now set up with installing the WalletD Rust library. You are now ready to try it out and incorporate it. 
+
+Here are links to guides with code examples that will introduce you to different aspects of WalletD:
 
 - [Guide to working with typical basic features of cryptocurrencies](/walletd_guide)
+- [Guide to using mnemonics in WalletD](/mnemonic_guide)
 - [Guide for Bitcoin Wallet with WalletD](/bitcoin_wallet)
 - [Guide for Ethereum Wallet with WalletD](/ethereum_wallet)
 - [Guide for Hierarchical Deterministic Wallet with WalletD](/hd_key_guide)
+
+## Notes on following the guides
+
+
+In the Rust code in the guides, we use `?` to handle errors.
+Most of the example code we provide can be put inside a main function that returns a Result that uses the `walletd::Error` type. 
+ 
+```rust {{ title: 'Example' }}
+use walletd;
+
+fn main -> Result<(), walletd::Error> {
+  println!("Main function returning Result for WalletD guide examples");
+  Ok(())
+}
+```
+
+Another way to handle errors returned by WalletD in Rust is to use `unwrap()`.
+Instances of `?` in the examples can be replaced by `.unwrap()`.
+However, it's usually better to limit the use of `unwrap()` (which leads to an immediate panic if an error occurs) and instead use `?`.
+You may want to handle the [different errors returned by WalletD]() in different ways in your implementation, and `?` enables this.
+

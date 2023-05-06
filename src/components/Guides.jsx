@@ -28,7 +28,7 @@ const guides = [
     href: '/walletd_guide',
     name: 'WalletD Overview',
     description:
-      'Learn how to use WalletD at high level.',
+      'Learn how to use WalletD at a high level.',
   },
 ]
 

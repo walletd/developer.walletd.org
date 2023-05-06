@@ -5,18 +5,30 @@ export const description =
 
 WalletD features [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) compliant HD keys
 to facilitate Hierarchical Deterministic (HD) wallets. 
+In this section, we'll guide you on how to use WalletD to access BIP39 mnemonics. {{ className: 'lead' }}
 
-In this section, we'll guide you on how to use walletD to access BIP39 mnemonics. {{ className: 'lead' }}
+<div className="not-prose">
+  <Button
+    href="/quickstart/#notes-on-following-the-guides"
+    variant="text"
+    arrow="right"
+    children="Notes on following the guide examples"
+  />
+</div>
 
+
+```rust {{ title: 'Imports needed for this section' }}
+use walletd::walletd_hd_key::prelude::*;
+use walletd::walletd_hd_key::slip44::{Coin, Symbol};
+```
 
 ## Master HD Key from a Seed
 
- You can create a new master HDKey from a Seed and also derive a child HDKey.
+You can create a new master HDKey from a Seed and also derive a child HDKey.
  
  Here's how you can import a master hd key based on a seed hex:
 
 ```rust {{ title: 'Example' }}
- use walletd::walletd_hd_key::prelude::*;
  let seed_hex = "a2fd9c0522d84d52ee4c8533dc02d4b69b4df9b6255e1af20c9f1d4d691689f2a38637eb1ec778972bf845c32d5ae83c7536999b5666397ac32021b21e0accee";
  let seed = Seed::from_str(seed_hex)?;
  // creating a new master key for a testnet network based on the above seed
@@ -55,10 +67,6 @@ println!(
  You flexibly specify the derivation path using the HDPathBuilder. The default HDPathBuilder which can be accessed through `HDPath::builder()` does not specify the purpose, or coin type, and uses the hardened indices for the purpose, coin type, and account indices.
 
 ```rust {{ title: 'Example' }}
-
-use walletd::walletd_hd_key::prelude::*;
-use walletd::walletd_hd_key::slip44::{Coin, Symbol};
-
 let default_deriv_path = HDPath::builder().build().to_string();
 // without specifying the purpose, the default derivation path is "m
 assert_eq!(default_deriv_path, "m");
