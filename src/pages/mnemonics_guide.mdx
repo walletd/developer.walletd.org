@@ -23,6 +23,11 @@ The mnemonic phrase provides a human-readable representation of the seed, making
 
 # BIP39 Mnemonic
 
+```rust {{ title: 'Imports needed for this section' }}
+use walletd::walletd_bip39::prelude::*;
+use walletd::walletd_bip39;
+``` 
+
 BIP39 Mnemonics follows the [BIP39 standard](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) for HD wallet mnemonic phrases. 
 In this section, we'll guide you on how to use WalletD to access BIP39 mnemonics. {{ className: 'lead' }}
 
@@ -30,16 +35,10 @@ In this section, we'll guide you on how to use WalletD to access BIP39 mnemonics
 
 Here's how you can create a new randomly generated BIP39 mnemonic using the default specifications:
 
-```rust {{ title: 'Imports needed for this section' }}
-use walletd::walletd_bip39::prelude::*;
-use walletd::walletd_bip39;
-``` 
-
 ```rust {{ title: 'Example'}}
 // call the a builder from `Bip39Mnemonic`, this gives you the default settings 
 // calling the build method will generate a new random bip39 mnemonic within the default specs
 let mnemonic = Bip39Mnemonic::builder().build()?;
-
 // display the generated mnemonic phrase
 println!("mnemonic phrase: {}", mnemonic.phrase());
 ```
@@ -66,7 +65,7 @@ println!("mnemonic seed hex: {:x}", mnemonic.to_seed());
  You can also reuse the `Bip39MnemonicBuilder` object in a mutable way to create multiple BIP39 mnemonics and even override previous specifications.
  Also we can see the number entropy bits linked to a mnemonic.
 
-```rust {{ title: 'Create different mnemonics with different settings' }}
+```rust {{ title: 'Example' }}
  let mut mnemonic_builder = Bip39Mnemonic::builder();
 
  // specify that the mnemonic phrase should consist of 24 words
@@ -95,13 +94,13 @@ println!("mnemonic seed hex: {:x}", mnemonic.to_seed());
  The specified passphrase is not stored in the `Bip39Mnemonic` struct. It is important to store the passphrase you specified securely as well as the mnemonic phrase to enable recovery of the `Bip39Mnemonic`.
 
 ```rust {{ title: 'Example' }}
- let mnemonic_3 = Bip39Mnemonic::builder()
+let mnemonic_3 = Bip39Mnemonic::builder()
      .passphrase("mypassphrase")
      .mnemonic_type(Bip39MnemonicType::Words12)
      .language(Bip39Language::English)
      .build()?;
- println!("mnemonic_3 phrase: {}", mnemonic_3.phrase());
- println!("mnemonic_3 seed hex: {:x}", mnemonic_3.to_seed());
+println!("mnemonic_3 phrase: {}", mnemonic_3.phrase());
+println!("mnemonic_3 seed hex: {:x}", mnemonic_3.to_seed());
  ```
 
  ## Restoring a Mnemonic
