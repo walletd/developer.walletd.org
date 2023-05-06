@@ -56,5 +56,23 @@ Here are links to guides with code examples that will introduce you to different
 - [Guide for Ethereum Wallet with WalletD](/ethereum_wallet)
 - [Guide for Hierarchical Deterministic Wallet with WalletD](/hd_key_guide)
 
+### Notes on following the guides
 
+
+In the Rust code in the guides, we use `?` to handle errors.
+Most of the example code we provide can be put inside a main function that returns a Result that uses the `walletd::Error` type. 
+ 
+```rust {{ title: 'Example' }}
+use walletd;
+
+fn main -> Result<(), walletd::Error> {
+  println!("Main function returning Result for WalletD guide examples");
+  Ok(())
+}
+```
+
+Another way to handle errors returned by WalletD in Rust is to use `unwrap()`.
+Instances of `?` in the examples can be replaced by `.unwrap()`.
+However, it's usually better to limit the use of `unwrap()` (which leads to an immediate panic if an error occurs) and instead use `?`.
+You may want to handle the [different errors returned by WalletD]() in different ways in your implementation, and `?` enables this.
 
