@@ -21,10 +21,6 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  assetPrefix: isProd ? '/developer.walletd.org/' : '',
-  images: {
-    unoptimized: true,
-  },
 }
 
 export default withMDX(nextConfig)
